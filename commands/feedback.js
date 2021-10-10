@@ -19,11 +19,10 @@ module.exports = {
         .setRequired(true)
     ),
   async execute(interaction, client) {
-    const { options } = interaction;
-    console.log(options);
     // Get options from interaction
-    const publicity = options.getString("publicity");
-    const message = options.getString("messaage");
+    const options = interaction.options;
+    const publicity = options.get("publicity").value;
+    const message = options.get("message").value;
 
     // Get current date and time
     const date = new Date();
