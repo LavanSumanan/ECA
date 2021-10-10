@@ -2,10 +2,13 @@
   "name": "ECA",
   "version": "1.0.0",
   "description": "",
-  "main": "./src/index.js",
+  "main": "./index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/LavanSumanan/ECA.git"
+  },
+  "scripts": {
+    "dev": "nodemon -e js"
   },
   "keywords": [],
   "author": "Lavan Sumanan",
