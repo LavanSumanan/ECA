@@ -7,7 +7,10 @@ const { Routes } = require("discord-api-types/v9");
 const { Client, Intents, Collection } = require("discord.js");
 const { token, prefix, guildId } = require("./Data/config.json");
 const intents = new Intents(32767);
-const client = new Client({ intents: intents, partials: ["CHANNEL"] });
+const client = new Client({
+  intents: intents,
+  partials: ["MESSAGE", "CHANNEL", "REACTION"],
+});
 
 // Slash commands stuff
 const commandFiles = fs
