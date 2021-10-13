@@ -13,7 +13,7 @@ module.exports = {
         .addChoice("welcome-and-intros", "welcome-and-intros")
         .addChoice("live-chat", "live-chat")
     ),
-  async execute(interaction, client) {
+  async execute(interaction) {
     const options = interaction.options;
     const channel = options.get("channel").value;
 
