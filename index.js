@@ -1,16 +1,17 @@
 console.clear();
 
 // Imports
-const fs = require("fs");
-const { REST } = require("@discordjs/rest");
-const { Routes } = require("discord-api-types/v9");
-const { Client, Intents, Collection } = require("discord.js");
+const fs = require("fs"); // file system
+const { REST } = require("@discordjs/rest"); // to access discord api
+const { Routes } = require("discord-api-types/v9"); // also to access discord api
+const { Client, Intents, Collection } = require("discord.js"); // classes from discord.js library
 const { token, prefix, guildId } = require("./Data/config.json");
-const intents = new Intents(32767);
+const intents = new Intents(32767); // 
 const client = new Client({
   intents: intents,
-  partials: ["MESSAGE", "CHANNEL", "REACTION"],
+  partials: ["MESSAGE", "CHANNEL", "REACTION", "GUILD_MEMBER"],
 });
+const date = new Date();
 
 // Slash commands stuff
 const commandFiles = fs
@@ -63,9 +64,34 @@ client.on("guildMemberAdd", (member) => {
   console.log(`${member.user.username} has joined`);
 });
 
+var prevMessage = 0;
+
 // Check whenever someone sends the bot a message
 client.on("messageCreate", (message) => {
   console.log(message.content);
+  const currentDate = new Date();
+  var currMessage = currentDate.getTime();
+  console.log(currMessage + " " + prevMessage);
+  if (
+    date.getDay() === 6 &&
+    date.getHours() > 8 &&
+    date.getHours() < 23 &&
+    currMessage - prevMessage >= 10 //604800
+  ) {
+    console.log("we in bois");
+    prevMessage = currentDate.getTime();
+    message.guild.members.fetch().then((members) => {
+      members.forEach((member) => {
+        // prevent it from trying to send a message to itself
+        if (member.id != "894019356705562674")
+          if (member.id == "280871651065856001") {
+            member.send(
+              "Hey! You're awesome! Thanks for being a part of the ACE community :)"
+            );
+          }
+      });
+    });
+  }
 
   if (message.author.bot) {
     return;
@@ -83,7 +109,6 @@ client.on("messageCreate", (message) => {
       message.reply(args.slice(1).join(" "));
       break;
     case "feedback":
-      const date = new Date();
       const currDate =
         date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
       const currTime =
