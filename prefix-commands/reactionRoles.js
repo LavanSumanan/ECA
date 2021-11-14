@@ -6,7 +6,7 @@ module.exports = {
     const heRole = message.guild.roles.cache.find(
       (role) => role.name === "he/him"
     );
-    console.log(`old role: ${role}`);
+    console.log(`old role: ${heRole}`);
 
     const heEmoji = "🔵";
 

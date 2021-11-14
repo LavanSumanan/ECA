@@ -32,7 +32,7 @@ module.exports = {
     const channel = interaction.channel;
     const emoji = interaction.options.get("emoji").value;
     const role = interaction.options.get("role");
-    console.log(`new role: ${role}`);
+    console.log(role);
 
     let embed = new Discord.MessageEmbed()
       .setColor("#e42643")

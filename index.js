@@ -71,6 +71,9 @@ client.once("ready", () => {
 });
 
 client.on("guildMemberAdd", (member) => {
+  // fix later
+  return;
+
   // DM people when they join with friendly message to explain how stuff works
   member.send(
     `Hello, ${member.user.username}! Welcome to the ECA test server! Find resources here: [] and here: []`
@@ -78,10 +81,10 @@ client.on("guildMemberAdd", (member) => {
   console.log(`${member.user.username} has joined`);
 });
 
-// this is awful, pls fix
-var prevMessage = 0;
-
 client.on("messageCreate", (message) => {
+  // fix later
+  return;
+
   console.log(message.content);
   // -----------------------------------------------PREFIX COMMANDS------------------------------------------------
 
