@@ -8,7 +8,8 @@
     "url": "git+https://github.com/LavanSumanan/ECA.git"
   },
   "scripts": {
-    "dev": "nodemon -e js"
+    "dev": "nodemon -e js",
+    "start": "node ."
   },
   "keywords": [],
   "author": "Lavan Sumanan",
