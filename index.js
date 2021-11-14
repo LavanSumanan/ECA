@@ -4,7 +4,7 @@ console.clear();
 const fs = require("fs"); // file system
 const { REST } = require("@discordjs/rest"); // to access discord api
 const { Routes } = require("discord-api-types/v9"); // also to access discord api
-const Discord = require("discord.js"); // import discord.js
+const Discord = require("discord.js");
 const { Client, Intents, Collection } = require("discord.js"); // classes from discord.js library
 const { token, prefix, guildId, clientId } = require("./Data/config.json");
 const intents = new Intents(32767);
@@ -115,7 +115,7 @@ client.on("interactionCreate", async (interaction) => {
   const command = client.slashCommands.get(interaction.commandName);
   if (!command) return;
   try {
-    await command.execute(interaction, client);
+    await command.execute(interaction, client, Discord);
   } catch (error) {
     if (error) console.error(error);
     await interaction.reply({

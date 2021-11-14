@@ -1,4 +1,3 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
 module.exports = {
   name: "reactionrole",
   description: "Sets up a reaction role message!",
@@ -7,6 +6,7 @@ module.exports = {
     const heRole = message.guild.roles.cache.find(
       (role) => role.name === "he/him"
     );
+    console.log(`old role: ${role}`);
 
     const heEmoji = "🔵";
 
@@ -18,7 +18,7 @@ module.exports = {
           `${heEmoji} for he/him`
       );
 
-    let messageEmbed = await message.channel.send(embed);
+    let messageEmbed = await message.channel.send({ embeds: [embed] });
     messageEmbed.react(heEmoji);
 
     client.on("messageReactionAdd", async (reaction, user) => {
