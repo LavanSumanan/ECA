@@ -6,7 +6,7 @@ const { REST } = require("@discordjs/rest"); // to access discord api
 const { Routes } = require("discord-api-types/v9"); // also to access discord api
 const Discord = require("discord.js");
 const { Client, Intents, Collection } = require("discord.js"); // classes from discord.js library
-const { token, prefix, guildId, clientId } = require("./Data/config.json");
+//const { token, prefix, guildId } = require("./Data/config.json");
 const intents = new Intents(32767);
 const client = new Client({
   intents: intents,
@@ -55,18 +55,19 @@ client.once("ready", () => {
 
   // Registering the commands in the client
   const CLIENT_ID = client.user.id;
+  const GUILD_ID = process.env.GUILD_ID;
   const rest = new REST({
     version: "9",
-  }).setToken(token);
+  }).setToken(process.env.TOKEN);
   (async () => {
     try {
-      if (!guildId) {
+      if (!GUILD_ID) {
         await rest.put(Routes.applicationCommands(CLIENT_ID), {
           body: slashCommands,
         });
         console.log("Successfully registered application commands globally");
       } else {
-        await rest.put(Routes.applicationGuildCommands(CLIENT_ID, guildId), {
+        await rest.put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), {
           body: slashCommands,
         });
         console.log(
@@ -97,9 +98,10 @@ client.on("messageCreate", (message) => {
   console.log(message.content);
   // -----------------------------------------------PREFIX COMMANDS------------------------------------------------
 
-  if (message.author.bot || !message.content.startsWith(prefix)) return;
+  if (message.author.bot || !message.content.startsWith(process.env.PREFIX))
+    return;
 
-  const args = message.content.slice(prefix.length).split(/ +/);
+  const args = message.content.slice(process.env.PREFIX.length).split(/ +/);
   const command = args.shift().toLowerCase();
 
   // check which prefix they used
@@ -138,4 +140,4 @@ client.on("interactionCreate", async (interaction) => {
 });
 
 // Login to Discord with your client's token
-client.login(token);
+client.login(process.env.TOKEN);
