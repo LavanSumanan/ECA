@@ -34,7 +34,7 @@ module.exports = {
     // Send feedback to appropriate channel
     if (publicity === "private") {
       client.channels.cache
-        .get(`895124031878090823`)
+        .find((channel) => channel.name === "private-feedback-channel")
         .send(`${currDate} @ ${currTime}: ${message}`);
       interaction.reply({
         content: "Sent! Thanks for the anonymous feedback!",
@@ -42,7 +42,7 @@ module.exports = {
       });
     } else if (publicity === "public") {
       client.channels.cache
-        .get(`896791547989884989`)
+        .find((channel) => channel.name === "feedback-boogie")
         .send(`${currDate} @ ${currTime}: ${message}`);
       interaction.reply({
         content: "Sent! Thanks for the anonymous feedback!",

@@ -43,6 +43,15 @@ for (const file of prefixCommandFiles) {
 // Runs on bot startup
 client.once("ready", () => {
   console.log("Bot is online!");
+  client.user.setPresence({
+    activities: [
+      {
+        name: "Maniac!",
+        type: "LISTENING",
+      },
+    ],
+    status: "online",
+  });
 
   // Registering the commands in the client
   const CLIENT_ID = client.user.id;
