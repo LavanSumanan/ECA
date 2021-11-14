@@ -59,7 +59,7 @@ client.once("ready", () => {
   const GUILD_ID = process.env.GUILD_ID;
   const rest = new REST({
     version: "9",
-  }).setToken(process.env.TOKEN);
+  }).setToken(process.env.BOT_TOKEN);
   (async () => {
     try {
       if (!GUILD_ID) {
@@ -141,4 +141,4 @@ client.on("interactionCreate", async (interaction) => {
 });
 
 // Login to Discord with your client's token
-client.login(process.env.TOKEN);
+client.login(process.env.BOT_TOKEN);
