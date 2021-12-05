@@ -15,7 +15,21 @@ const client = new Client({
 });
 const date = new Date();
 
-// // --------------------------------------------SLASH COMMANDS SETUP----------------------------------------------
+// -----------------------------------------EVENT LISTENERS SETUP----------------------------------------------
+const eventFiles = fs
+  .readdirSync("./events")
+  .filter((file) => file.endsWith(".js"));
+
+for (const file of eventFiles) {
+  const event = require(`./events/${file}`);
+  if (event.once) {
+    client.once(event.name, (...args) => event.execute(...args));
+  } else {
+    client.on(event.name, (...args) => event.execute(...args));
+  }
+}
+
+// --------------------------------------------SLASH COMMANDS SETUP----------------------------------------------
 const slashCommandFiles = fs
   .readdirSync("./slash-commands")
   .filter((file) => file.endsWith(".js"));
@@ -47,7 +61,7 @@ client.once("ready", () => {
   client.user.setPresence({
     activities: [
       {
-        name: "Maniac!",
+        name: "Who Do You Love!",
         type: "LISTENING",
       },
     ],
