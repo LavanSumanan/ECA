@@ -7,12 +7,14 @@ const { Routes } = require("discord-api-types/v9"); // also to access discord ap
 const Discord = require("discord.js");
 const { Client, Intents, Collection } = require("discord.js"); // classes from discord.js library
 //const { token, prefix, guildId } = require("./Data/config.json");
+const mongoose = require("mongoose");
 require("dotenv").config();
 const intents = new Intents(32767);
 const client = new Client({
   intents: intents,
   partials: ["MESSAGE", "CHANNEL", "REACTION"],
 });
+
 const date = new Date();
 
 // // --------------------------------------------SLASH COMMANDS SETUP----------------------------------------------
@@ -42,8 +44,13 @@ for (const file of prefixCommandFiles) {
 }
 
 // Runs on bot startup
-client.once("ready", () => {
+client.once("ready", async () => {
   console.log("Bot is online!");
+
+  await mongoose.connect(process.env.MONGO_URI || "", {
+    keepAlive: true,
+  });
+
   client.user.setPresence({
     activities: [
       {
