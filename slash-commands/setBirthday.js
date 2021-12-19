@@ -74,26 +74,39 @@ module.exports = {
     //----------------------------------------------------------------
 
     if (day <= parseInt(months[month][1]) && day > 0) {
-      const userBirthday = await birthdaySchema.find({
-        userid: userid,
-      });
+      let userBirthday;
+      try {
+        userBirthday = await birthdaySchema.find({
+          userid: userid,
+        });
+      } catch (e) {
+        console.error(e);
+      }
 
       if (userBirthday.length == 0) {
-        await new birthdaySchema({
-          userid: userid,
-          month: parseInt(month),
-          day: parseInt(day),
-        }).save();
-      } else {
-        await birthdaySchema.updateOne(
-          {
+        try {
+          await new birthdaySchema({
             userid: userid,
-          },
-          {
             month: parseInt(month),
             day: parseInt(day),
-          }
-        );
+          }).save();
+        } catch (e) {
+          console.error(e);
+        }
+      } else {
+        try {
+          await birthdaySchema.updateOne(
+            {
+              userid: userid,
+            },
+            {
+              month: parseInt(month),
+              day: parseInt(day),
+            }
+          );
+        } catch (e) {
+          console.error(e);
+        }
       }
 
       interaction.reply({

@@ -21,11 +21,15 @@ module.exports = {
       const currMonth = date.getMonth() + 1;
       const currDay = date.getDate();
 
-      const birthdays = await birthdaySchema.find({
-        month: currMonth,
-        day: currDay,
-      });
-      console.log(birthdays);
+      try {
+        const birthdays = await birthdaySchema.find({
+          month: currMonth,
+          day: currDay,
+        });
+        console.log(birthdays);
+      } catch (e) {
+        console.error(e);
+      }
 
       for (let birthday of birthdays) {
         const user = client.users.cache.get(birthday.userid);
@@ -34,7 +38,11 @@ module.exports = {
         console.log(
           `Happy birthday to ${user} on month: ${userMonth}, day: ${userDay}`
         );
-        sendMessageToServer(client, "calendar", `Happy birthday ${user}!`);
+        try {
+          sendMessageToServer(client, "calendar", `Happy birthday ${user}!`);
+        } catch (e) {
+          console.error(e);
+        }
       }
 
       //---------------------------LEGACY CODE----------------------------
