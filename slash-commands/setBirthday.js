@@ -1,5 +1,7 @@
 "use strict";
 
+const birthdaySchema = require("../Schemas/birthday-schema");
+
 const fs = require("fs");
 const fileName = "./Data/birthdays.json";
 
@@ -59,6 +61,7 @@ module.exports = {
 
     console.log(`${months[month][0]} ${day}`);
 
+    //------------------------FOR DEVELOPMENT------------------------
     let rawdata = fs.readFileSync(fileName);
     let birthdays = JSON.parse(rawdata);
 
@@ -66,8 +69,31 @@ module.exports = {
     birthdays[userid] = birthday;
     let data = JSON.stringify(birthdays, null, 4);
     fs.writeFileSync(fileName, data);
+    //----------------------------------------------------------------
 
     if (day <= parseInt(months[month][1]) && day > 0) {
+      const userBirthday = await birthdaySchema.find({
+        userid: userid,
+      });
+
+      if (userBirthday.length == 0) {
+        await new birthdaySchema({
+          userid: userid,
+          month: parseInt(month),
+          day: parseInt(day),
+        }).save();
+      } else {
+        await birthdaySchema.updateOne(
+          {
+            userid: userid,
+          },
+          {
+            month: parseInt(month),
+            day: parseInt(day),
+          }
+        );
+      }
+
       interaction.reply({
         content: `Got it! Your birthday is ${months[month][0]} ${day}!`,
         ephemeral: true,

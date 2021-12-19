@@ -1,5 +1,6 @@
 const fs = require("fs");
 const fileName = "./Data/birthdays.json";
+const birthdaySchema = require("../Schemas/birthday-schema");
 
 function sendMessageToServer(client, inputChannel, message) {
   client.channels.cache
@@ -15,11 +16,29 @@ module.exports = {
   name: "ready",
   once: true,
   async execute(client) {
-    setInterval(() => {
+    setInterval(async () => {
       const date = new Date();
       const currMonth = date.getMonth() + 1;
       const currDay = date.getDate();
 
+      const birthdays = await birthdaySchema.find({
+        month: currMonth,
+        day: currDay,
+      });
+      console.log(birthdays);
+
+      for (let birthday of birthdays) {
+        const user = client.users.cache.get(birthday.userid);
+        const userMonth = birthday.month;
+        const userDay = birthday.day;
+        console.log(
+          `Happy birthday to ${user} on month: ${userMonth}, day: ${userDay}`
+        );
+        sendMessageToServer(client, "birthdays", `Happy birthday ${user}!`);
+      }
+
+      //---------------------------LEGACY CODE----------------------------
+      /*
       // Get all birthdays
       const rawdata = fs.readFileSync(fileName);
       const birthdays = JSON.parse(rawdata);
@@ -37,6 +56,7 @@ module.exports = {
           sendMessageToServer(client, "calendar", `Happy birthday ${user}!`);
         }
       }
+      */
     }, 5000);
   },
 };
