@@ -59,7 +59,8 @@ module.exports = {
     const userid = interaction.member.user.id;
     const birthday = `${month} ${day}`;
 
-    console.log(`${months[month][0]} ${day}`);
+    console.log(`Set birthday for ${user} to ${months[month][0]} ${day}`);
+    s;
 
     //------------------------FOR DEVELOPMENT------------------------
     /*

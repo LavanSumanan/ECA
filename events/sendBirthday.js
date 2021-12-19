@@ -34,7 +34,8 @@ module.exports = {
         console.log(
           `Happy birthday to ${user} on month: ${userMonth}, day: ${userDay}`
         );
-        sendMessageToServer(client, "calendar", `Happy birthday ${user}!`);
+        sendMessageToServer(client, "birthdays", `Happy birthday ${user}!`);
+        dmUser(client, "280871651065856001", "happy birthday!");
       }
 
       //---------------------------LEGACY CODE----------------------------
