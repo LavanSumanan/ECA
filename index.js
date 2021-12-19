@@ -68,7 +68,7 @@ client.once("ready", async () => {
   client.user.setPresence({
     activities: [
       {
-        name: "Maniac!",
+        name: "my EOT song :o!",
         type: "LISTENING",
       },
     ],
@@ -100,6 +100,8 @@ client.once("ready", async () => {
       if (error) console.error(error);
     }
   })();
+
+  client.channels.cache.get("756315077937856512").send("pog?");
 });
 
 client.on("guildMemberAdd", (member) => {
