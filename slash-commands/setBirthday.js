@@ -62,6 +62,7 @@ module.exports = {
     console.log(`${months[month][0]} ${day}`);
 
     //------------------------FOR DEVELOPMENT------------------------
+    /*
     let rawdata = fs.readFileSync(fileName);
     let birthdays = JSON.parse(rawdata);
 
@@ -69,6 +70,7 @@ module.exports = {
     birthdays[userid] = birthday;
     let data = JSON.stringify(birthdays, null, 4);
     fs.writeFileSync(fileName, data);
+    */
     //----------------------------------------------------------------
 
     if (day <= parseInt(months[month][1]) && day > 0) {
