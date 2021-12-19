@@ -20,9 +20,9 @@ module.exports = {
       const date = new Date();
       const currMonth = date.getMonth() + 1;
       const currDay = date.getDate();
-
+      let birthdays;
       try {
-        const birthdays = await birthdaySchema.find({
+        birthdays = await birthdaySchema.find({
           month: currMonth,
           day: currDay,
         });
