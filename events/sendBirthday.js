@@ -34,7 +34,7 @@ module.exports = {
         console.log(
           `Happy birthday to ${user} on month: ${userMonth}, day: ${userDay}`
         );
-        sendMessageToServer(client, "birthdays", `Happy birthday ${user}!`);
+        sendMessageToServer(client, "calendar", `Happy birthday ${user}!`);
       }
 
       //---------------------------LEGACY CODE----------------------------
@@ -57,6 +57,6 @@ module.exports = {
         }
       }
       */
-    }, 5000);
+    }, 10000);
   },
 };
