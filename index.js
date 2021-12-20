@@ -17,7 +17,7 @@ const client = new Client({
 
 const date = new Date();
 
-// -----------------------------------------EVENT LISTENERS SETUP----------------------------------------------
+// -----------------------------------------EVENTS SETUP----------------------------------------------
 const eventFiles = fs
   .readdirSync("./events")
   .filter((file) => file.endsWith(".js"));
@@ -31,6 +31,21 @@ for (const file of eventFiles) {
   }
 }
 
+// -----------------------------------TESTING EVENTS SETUP-------------------------------
+if (process.env.ENV == "DEV") {
+  const testingFiles = fs
+    .readdirSync("./testing")
+    .filter((file) => file.endsWith(".event.js"));
+
+  for (const file of testingFiles) {
+    const event = require(`./testing/${file}`);
+    if (event.once) {
+      client.once(event.name, (...args) => event.execute(...args));
+    } else {
+      client.on(event.name, (...args) => event.execute(...args));
+    }
+  }
+}
 // --------------------------------------------SLASH COMMANDS SETUP----------------------------------------------
 const slashCommandFiles = fs
   .readdirSync("./slash-commands")
