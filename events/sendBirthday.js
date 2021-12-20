@@ -39,7 +39,7 @@ module.exports = {
           `Happy birthday to ${user} on month: ${userMonth}, day: ${userDay}`
         );
         try {
-          sendMessageToServer(client, "calendar", `Happy birthday ${user}!`);
+          sendMessageToServer(client, "general", `Happy birthday ${user}!`);
         } catch (e) {
           console.error(e);
         }

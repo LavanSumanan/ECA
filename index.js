@@ -100,6 +100,11 @@ client.once("ready", async () => {
       if (error) console.error(error);
     }
   })();
+
+  client.channels.cache
+  .find((channel) => channel.name === "general")
+  .send("boop");
+
 });
 
 client.on("guildMemberAdd", (member) => {
