@@ -3,21 +3,12 @@
 // const fileName = "./Data/birthdays.json";
 
 const birthdaySchema = require("../Schemas/birthday-schema");
-const time = require("../helpers/time");
+const { getTime } = require("../helpers/time");
+const { sendMessageToServer, dmUser } = require("../helpers/message");
 const dayInMs = 86400000;
 
-function sendMessageToServer(client, inputChannel, message) {
-  client.channels.cache
-    .find((channel) => channel.name === inputChannel)
-    .send(message);
-}
-
-function dmUser(client, inputUser, message) {
-  client.users.cache.get(inputUser).send(message);
-}
-
 async function sendBirthdayMessage(client, channel) {
-  const date = time.dateTime();
+  const date = getTime();
   const currMonth = date.getMonth() + 1;
   const currDay = date.getDate();
   let birthdays;
@@ -71,7 +62,7 @@ module.exports = {
   name: "ready",
   once: true,
   async execute(client) {
-    const date = time.dateTime();
+    const date = getTime();
     const msPassed = (date.valueOf() - 5 * 60 * 60 * 1000) % dayInMs;
     const msToWait = dayInMs - msPassed;
     console.log(`waiting time: ${msToWait}`);
