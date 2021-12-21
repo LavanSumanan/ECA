@@ -2,8 +2,8 @@
 
 const birthdaySchema = require("../Schemas/birthday-schema");
 
-const fs = require("fs");
-const fileName = "./Data/birthdays.json";
+// const fs = require("fs");
+// const fileName = "./Data/birthdays.json";
 
 const { SlashCommandBuilder } = require("@discordjs/builders");
 
@@ -57,7 +57,7 @@ module.exports = {
     const day = options.get("day").value;
 
     const userid = interaction.member.user.id;
-    const birthday = `${month} ${day}`;
+    // const birthday = `${month} ${day}`;
 
     console.log(`Set birthday for ${userid} to ${months[month][0]} ${day}`);
 

@@ -9,6 +9,8 @@ const { Client, Intents, Collection } = require("discord.js"); // classes from d
 //const { token, prefix, guildId } = require("./Data/config.json");
 const mongoose = require("mongoose");
 require("dotenv").config();
+
+// Set up Client
 const intents = new Intents(32767);
 const client = new Client({
   intents: intents,

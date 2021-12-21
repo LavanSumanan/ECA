@@ -44,7 +44,7 @@ module.exports = {
     } else if (publicity === "public") {
       client.channels.cache
         .find((channel) => channel.name === "bot-stuffs")
-        .send(`${currDate} @ ${currTime}: ${message} [private]`);
+        .send(`${currDate} @ ${currTime}: ${message} [public]`);
       interaction.reply({
         content: "Sent! Thanks for the anonymous feedback!",
         ephemeral: true,
