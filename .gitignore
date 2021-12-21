@@ -77,6 +77,3 @@ typings/
 
 # Config file
 config.json
-
-# Debug messages
-testing/

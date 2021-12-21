@@ -15,15 +15,26 @@ const client = new Client({
   partials: ["MESSAGE", "CHANNEL", "REACTION"],
 });
 
-const date = new Date();
-
 // -----------------------------------------EVENTS SETUP----------------------------------------------
-const eventFiles = fs
+let eventFiles = fs
   .readdirSync("./events")
   .filter((file) => file.endsWith(".js"));
 
+// Testing events
+if (process.env.ENV == "DEV") {
+  const testEventFiles = fs
+    .readdirSync("./testing")
+    .filter((file) => file.endsWith(".event.js"));
+  eventFiles = eventFiles.concat(testEventFiles);
+}
+
 for (const file of eventFiles) {
-  const event = require(`./events/${file}`);
+  let event;
+  if (file.endsWith(".event.js")) {
+    event = require(`./testing/${file}`);
+  } else {
+    event = require(`./events/${file}`);
+  }
   if (event.once) {
     client.once(event.name, (...args) => event.execute(...args));
   } else {
@@ -31,31 +42,28 @@ for (const file of eventFiles) {
   }
 }
 
-// -----------------------------------TESTING EVENTS SETUP-------------------------------
-if (process.env.ENV == "DEV") {
-  const testingFiles = fs
-    .readdirSync("./testing")
-    .filter((file) => file.endsWith(".event.js"));
-
-  for (const file of testingFiles) {
-    const event = require(`./testing/${file}`);
-    if (event.once) {
-      client.once(event.name, (...args) => event.execute(...args));
-    } else {
-      client.on(event.name, (...args) => event.execute(...args));
-    }
-  }
-}
-// --------------------------------------------SLASH COMMANDS SETUP----------------------------------------------
-const slashCommandFiles = fs
+// ----------------------------------------SLASH COMMANDS SETUP----------------------------------------------
+let slashCommandFiles = fs
   .readdirSync("./slash-commands")
   .filter((file) => file.endsWith(".js"));
+
+if (process.env.ENV == "DEV") {
+  const testCommandFiles = fs
+    .readdirSync("./testing")
+    .filter((file) => file.endsWith(".slash.js"));
+  slashCommandFiles = slashCommandFiles.concat(testCommandFiles);
+}
 
 const slashCommands = [];
 client.slashCommands = new Collection();
 
 for (const file of slashCommandFiles) {
-  const slashCommand = require(`./slash-commands/${file}`);
+  let slashCommand;
+  if (file.endsWith(".slash.js")) {
+    slashCommand = require(`./testing/${file}`);
+  } else {
+    slashCommand = require(`./slash-commands/${file}`);
+  }
   slashCommands.push(slashCommand.data.toJSON());
   client.slashCommands.set(slashCommand.data.name, slashCommand);
 }
