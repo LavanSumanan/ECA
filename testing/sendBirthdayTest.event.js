@@ -51,7 +51,12 @@ async function sendBirthdayMessage(client, channel) {
       `Happy birthday to ${user} on month: ${userMonth}, day: ${userDay}`
     );
     try {
-      sendMessageToServer(client, channel, `Happy birthday ${user}!`);
+      sendMessageToServer(
+        client,
+        channel,
+        `🥳 🎂 Happy ${user} day!!! 🎂 🥳`,
+        "572591630503378945"
+      );
     } catch (e) {
       console.error(e);
     }
