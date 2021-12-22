@@ -1,5 +1,7 @@
 const { getTime } = require("../helpers/time");
+const { sendMessageToServer } = require("../helpers/message");
 const { SlashCommandBuilder } = require("@discordjs/builders");
+require("dotenv").config();
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -34,17 +36,23 @@ module.exports = {
 
     // Send feedback to appropriate channel
     if (publicity === "private") {
-      client.channels.cache
-        .find((channel) => channel.name === "bot-stuffs")
-        .send(`${currDate} @ ${currTime}: ${message} [private]`);
+      sendMessageToServer(
+        client,
+        "bot-stuffs",
+        `${currDate} @ ${currTime}: ${message} [private]`,
+        process.env.PROD_ID
+      );
       interaction.reply({
         content: "Sent! Thanks for the anonymous feedback!",
         ephemeral: true,
       });
     } else if (publicity === "public") {
-      client.channels.cache
-        .find((channel) => channel.name === "bot-stuffs")
-        .send(`${currDate} @ ${currTime}: ${message} [public]`);
+      sendMessageToServer(
+        client,
+        "bot-stuffs",
+        `${currDate} @ ${currTime}: ${message} [public]`,
+        process.env.PROD_IDs
+      );
       interaction.reply({
         content: "Sent! Thanks for the anonymous feedback!",
         ephemeral: true,
