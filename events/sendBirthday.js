@@ -44,7 +44,7 @@ module.exports = {
   once: true,
   async execute(client) {
     const date = getTime();
-    const msPassed = (date.valueOf() - 5 * 60 * 60 * 1000) % dayInMs;
+    const msPassed = date.getTime() % dayInMs;
     const msToWait = dayInMs - msPassed;
     console.log(`local date: ${date.toLocaleDateString()}`);
     console.log(`epoch time: ${date.valueOf()}`);
