@@ -6,6 +6,8 @@ const birthdaySchema = require("../Schemas/birthday-schema");
 const { getTime } = require("../helpers/time");
 const { sendMessageToServer, dmUser } = require("../helpers/message");
 const dayInMs = 86400000;
+require("dotenv").config();
+const estOffset = 5 * 60 * 60 * 1000;
 
 async function sendBirthdayMessage(client, channel) {
   const date = getTime();
@@ -55,7 +57,7 @@ async function sendBirthdayMessage(client, channel) {
         client,
         channel,
         `🥳 🎂 Happy ${user} day!!! 🎂 🥳`,
-        "572591630503378945"
+        process.env.PROD_ID
       );
     } catch (e) {
       console.error(e);
@@ -68,7 +70,7 @@ module.exports = {
   once: true,
   async execute(client) {
     const date = getTime();
-    const msPassed = (date.valueOf() - 5 * 60 * 60 * 1000) % dayInMs;
+    const msPassed = (date.valueOf() - estOffset) % dayInMs;
     const msToWait = dayInMs - msPassed;
     console.log(`waiting time: ${msToWait}`);
 

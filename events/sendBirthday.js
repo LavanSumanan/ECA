@@ -3,6 +3,7 @@ const { getTime } = require("../helpers/time");
 const { sendMessageToServer, dmUser } = require("../helpers/message");
 const dayInMs = 86400000;
 require("dotenv").config();
+const estOffset = process.env.ENV === "DEV" ? 5 * 60 * 60 * 1000 : 0;
 
 async function sendBirthdayMessage(client, channel) {
   const date = getTime();
@@ -44,7 +45,7 @@ module.exports = {
   once: true,
   async execute(client) {
     const date = getTime();
-    const msPassed = date.getTime() % dayInMs;
+    const msPassed = (date.getTime() - estOffset) % dayInMs;
     const msToWait = dayInMs - msPassed;
     console.log(`local date: ${date.toLocaleDateString()}`);
     console.log(`epoch time: ${date.valueOf()}`);
