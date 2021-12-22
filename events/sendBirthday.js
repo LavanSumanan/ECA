@@ -46,7 +46,10 @@ module.exports = {
     const date = getTime();
     const msPassed = (date.valueOf() - 5 * 60 * 60 * 1000) % dayInMs;
     const msToWait = dayInMs - msPassed;
-    console.log(`waiting time: ${msToWait}`);
+    console.log(`local date: ${date.toLocaleDateString()}`);
+    console.log(`epoch time: ${date.valueOf()}`);
+    console.log(`ms passed: ${msPassed}`);
+    console.log(`ms to wait: ${msToWait}`);
 
     // Wait until midnight the next night
     setTimeout(async () => {
