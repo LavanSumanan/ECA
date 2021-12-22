@@ -1,5 +1,5 @@
 const { getTime } = require("../helpers/time");
-const { sendMessageToServer } = require("../helpers/message");s
+const { sendMessageToServer } = require("../helpers/message");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 require("dotenv").config();
 
