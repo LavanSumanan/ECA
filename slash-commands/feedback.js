@@ -1,4 +1,7 @@
+const { getTime } = require("../helpers/time");
+const { sendMessageToServer } = require("../helpers/message");
 const { SlashCommandBuilder } = require("@discordjs/builders");
+require("dotenv").config();
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -25,7 +28,7 @@ module.exports = {
     const message = options.get("message").value;
 
     // Get current date and time
-    const date = new Date();
+    const date = getTime();
     const currDate =
       date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
     const currTime =
@@ -33,17 +36,23 @@ module.exports = {
 
     // Send feedback to appropriate channel
     if (publicity === "private") {
-      client.channels.cache
-        .find((channel) => channel.name === "private-feedback-channel")
-        .send(`${currDate} @ ${currTime}: ${message}`);
+      sendMessageToServer(
+        client,
+        "private-feedback-channel",
+        `${currDate} @ ${currTime}: ${message}`,
+        process.env.GUILD_ID
+      );
       interaction.reply({
         content: "Sent! Thanks for the anonymous feedback!",
         ephemeral: true,
       });
     } else if (publicity === "public") {
-      client.channels.cache
-        .find((channel) => channel.name === "feedback-boogie")
-        .send(`${currDate} @ ${currTime}: ${message}`);
+      sendMessageToServer(
+        client,
+        "feedback-boogie",
+        `${currDate} @ ${currTime}: ${message}`,
+        process.env.GUILD_ID
+      );
       interaction.reply({
         content: "Sent! Thanks for the anonymous feedback!",
         ephemeral: true,

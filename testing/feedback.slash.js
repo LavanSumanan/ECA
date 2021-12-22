@@ -1,4 +1,4 @@
-const time = require("../helpers/time");
+const { getTime } = require("../helpers/time");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
@@ -26,7 +26,7 @@ module.exports = {
     const message = options.get("message").value;
 
     // Get current date and time
-    const date = time.dateTime();
+    const date = getTime();
     const currDate =
       date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
     const currTime =
