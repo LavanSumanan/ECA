@@ -24,6 +24,7 @@ const months = [
 ];
 
 module.exports = {
+  level: "public",
   data: new SlashCommandBuilder()
     .setName("birthday")
     .setDescription("Enter your birthday and we'll wish you!")

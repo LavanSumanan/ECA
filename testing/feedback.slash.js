@@ -4,6 +4,7 @@ const { SlashCommandBuilder } = require("@discordjs/builders");
 require("dotenv").config();
 
 module.exports = {
+  level: "public",
   data: new SlashCommandBuilder()
     .setName("feedbacktest")
     .setDescription("Send us anonymous private or public feedback!")
