@@ -19,7 +19,7 @@ async function sendBirthdayMessage(client, channel) {
       month: currMonth,
       day: currDay,
     });
-    console.log(birthdays);
+    // console.log(birthdays);
   } catch (e) {
     console.error(e);
   }
@@ -72,16 +72,16 @@ module.exports = {
     const date = getTime();
     const msPassed = (date.valueOf() - estOffset) % dayInMs;
     const msToWait = dayInMs - msPassed;
-    console.log(`waiting time: ${msToWait}`);
+    // console.log(`waiting time: ${msToWait}`);
 
     // Wait until midnight the next night
     setTimeout(async () => {
-      console.log("midnight! (set timeout)");
+      // console.log("midnight! (set timeout)");
       // check if it's anyone's birthday
       await sendBirthdayMessage(client, "bot-stuffs");
       // wait a day, check again, repeat every day
       setInterval(async () => {
-        console.log("(set interval)");
+        // console.log("(set interval)");
         await sendBirthdayMessage(client, "bot-stuffs");
       }, dayInMs);
     }, msToWait);
