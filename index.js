@@ -44,32 +44,6 @@ for (const file of eventFiles) {
   }
 }
 
-// ----------------------------------------SLASH COMMANDS SETUP----------------------------------------------
-let slashCommandFiles = fs
-  .readdirSync("./slash-commands")
-  .filter((file) => file.endsWith(".js"));
-
-if (process.env.ENV == "DEV") {
-  const testCommandFiles = fs
-    .readdirSync("./testing")
-    .filter((file) => file.endsWith(".slash.js"));
-  slashCommandFiles = slashCommandFiles.concat(testCommandFiles);
-}
-
-const slashCommands = [];
-client.slashCommands = new Collection();
-
-for (const file of slashCommandFiles) {
-  let slashCommand;
-  if (file.endsWith(".slash.js")) {
-    slashCommand = require(`./testing/${file}`);
-  } else {
-    slashCommand = require(`./slash-commands/${file}`);
-  }
-  slashCommands.push(slashCommand.data.toJSON());
-  client.slashCommands.set(slashCommand.data.name, slashCommand);
-}
-
 // ----------------------------------------------PREFIX COMMANDS SETUP-----------------------------------------------
 const prefixCommandFiles = fs
   .readdirSync("./prefix-commands")
@@ -81,51 +55,6 @@ for (const file of prefixCommandFiles) {
   const prefixCommand = require(`./prefix-commands/${file}`);
   client.prefixCommands.set(prefixCommand.name, prefixCommand);
 }
-
-// Runs on bot startup
-client.once("ready", async () => {
-  console.log("Bot is online!");
-
-  await mongoose.connect(process.env.MONGO_URI || "", {
-    keepAlive: true,
-  });
-
-  client.user.setPresence({
-    activities: [
-      {
-        name: "my EOT song :o!",
-        type: "LISTENING",
-      },
-    ],
-    status: "online",
-  });
-
-  // Registering the commands in the client
-  const CLIENT_ID = client.user.id;
-  const GUILD_ID = process.env.GUILD_ID;
-  const rest = new REST({
-    version: "9",
-  }).setToken(process.env.BOT_TOKEN);
-  (async () => {
-    try {
-      if (!GUILD_ID) {
-        await rest.put(Routes.applicationCommands(CLIENT_ID), {
-          body: slashCommands,
-        });
-        console.log("Successfully registered application commands globally");
-      } else {
-        await rest.put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), {
-          body: slashCommands,
-        });
-        console.log(
-          "Successfully registered application commands for development guild"
-        );
-      }
-    } catch (error) {
-      if (error) console.error(error);
-    }
-  })();
-});
 
 client.on("guildMemberAdd", (member) => {
   // fix later
@@ -141,34 +70,6 @@ client.on("guildMemberAdd", (member) => {
 client.on("messageCreate", (message) => {
   // fix later
   return;
-
-  console.log(message.content);
-  // -----------------------------------------------PREFIX COMMANDS------------------------------------------------
-
-  if (message.author.bot || !message.content.startsWith(process.env.PREFIX))
-    return;
-
-  const args = message.content.slice(process.env.PREFIX.length).split(/ +/);
-  const command = args.shift().toLowerCase();
-
-  // check which prefix they used
-  switch (command) {
-    case "reactionrole":
-      client.prefixCommands
-        .get("reactionrole")
-        .execute(message, args, Discord, client);
-      break;
-    case "feedback":
-      const currDate =
-        date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
-      const currTime =
-        date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
-      const feedback = args.slice(1).join(" ");
-      client.channels.cache
-        .get(`895124031878090823`)
-        .send(`${currDate} @ ${currTime}: ${feedback}`);
-      break;
-  }
 });
 
 client.on("interactionCreate", async (interaction) => {
