@@ -17,8 +17,6 @@ module.exports = {
     // Get options from interaction
     const options = interaction.options;
 
-    console.log("status changed by", interaction.member.user.username);
-
     if (!interaction.member.permissions.any("ADMINISTRATOR")) {
       interaction.reply({
         content: `Sorry! Only executives can run this command!`,
@@ -53,5 +51,12 @@ module.exports = {
       content: `Got it! ECA is now listening to ${name}`,
       ephemeral: true,
     });
+
+    console.log(
+      "status changed by",
+      interaction.member.user.username,
+      "to",
+      name
+    );
   },
 };
