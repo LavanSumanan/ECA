@@ -1,4 +1,4 @@
-const birthdaySchema = require("../Schemas/birthday-schema");
+const birthdaySchema = require("../schemas/birthday-schema");
 const { getTime } = require("../helpers/time");
 const { sendMessageToServer, dmUser } = require("../helpers/message");
 const dayInMs = 86400000;

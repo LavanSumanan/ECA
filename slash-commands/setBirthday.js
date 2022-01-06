@@ -1,6 +1,6 @@
 "use strict";
 
-const birthdaySchema = require("../Schemas/birthday-schema");
+const birthdaySchema = require("../schemas/birthday-schema");
 
 // const fs = require("fs");
 // const fileName = "./Data/birthdays.json";
