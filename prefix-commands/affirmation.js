@@ -20,7 +20,7 @@ module.exports = {
     message.guild.members.fetch().then((members) => {
       members.forEach((member) => {
         // prevent it from trying to send a message to itself
-        if (member.id == "280871651065856001") {
+        if (member.id == process.env.BOT_OWNER) {
           member.send(
             "Hey! You're awesome! Thanks for being a part of the ACE community :)"
           );

@@ -8,8 +8,8 @@ module.exports = {
     // -----------------------------------ECA Test Server----------------------------------
     // sendMessageToServer(client, "general", "test", process.env.GUILD_ID);
     // -------------------------------------ACE Server-------------------------------------
-    // sendMessageToServer(client, "bot-stuffs", "", process.env.PROD_ID);
+    // sendMessageToServer(client, "general", "", process.env.PROD_ID);
     // ---------------------------------------User DM--------------------------------------
-    // dmUser(client, "280871651065856001", "test123");
+    // dmUser(client, process.env.BOT_OWNER, "test123");
   },
 };
