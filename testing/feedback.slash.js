@@ -22,7 +22,8 @@ module.exports = {
         .setDescription("Write a feedback message")
         .setRequired(true)
     ),
-  async execute(interaction, client) {
+  async execute(interaction) {
+    const client = interaction.client;
     // Get options from interaction
     const options = interaction.options;
     const publicity = options.get("publicity").value;

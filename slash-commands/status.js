@@ -13,7 +13,8 @@ module.exports = {
         .setRequired(true)
     )
     .setDefaultPermission(false),
-  async execute(interaction, client) {
+  async execute(interaction) {
+    const client = interaction.client;
     // Get options from interaction
     const options = interaction.options;
 

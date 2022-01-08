@@ -4,7 +4,7 @@ const statusSchema = require("../Schemas/status-schema");
 module.exports = {
   level: "mod",
   data: new SlashCommandBuilder()
-    .setName("status")
+    .setName("statustest")
     .setDescription("Set ECA's status!")
     .addStringOption((option) =>
       option
@@ -13,7 +13,8 @@ module.exports = {
         .setRequired(true)
     )
     .setDefaultPermission(false),
-  async execute(interaction, client) {
+  async execute(interaction) {
+    const client = interaction.client;
     // Get options from interaction
     const options = interaction.options;
 
