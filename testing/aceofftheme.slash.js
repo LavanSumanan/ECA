@@ -5,7 +5,7 @@ const trackedmessageSchema = require("../Schemas/trackedmessage-schema");
 module.exports = {
   level: "public",
   data: new SlashCommandBuilder()
-    .setName("suggestthemetest")
+    .setName("themetest")
     .setDescription("Suggest a future ace-off theme!")
     .addStringOption((option) =>
       option
@@ -31,7 +31,7 @@ module.exports = {
     const client = interaction.client;
     const theme = interaction.options.getString("theme");
     const emojis = interaction.options.getString("emojis");
-    const wantsCredit = interaction.options.getBoolean("credit");
+    const wantsCredit = interaction.options.getBoolean("credit");``
     console.log(theme, emojis, wantsCredit);
     const intro =
       "Got it! Your ace-off theme suggestion will look like this:\n";

@@ -5,7 +5,7 @@ const trackedmessageSchema = require("../Schemas/trackedmessage-schema");
 module.exports = {
   level: "public",
   data: new SlashCommandBuilder()
-    .setName("suggesttheme")
+    .setName("theme")
     .setDescription("Suggest a future ace-off theme!")
     .addStringOption((option) =>
       option
