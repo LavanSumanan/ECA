@@ -38,7 +38,7 @@ module.exports = {
 
     console.log("no longer yelling this at haoda: ", message);
 
-    yellAtHaodaSchema.deleteOne({ id: id });
+    await yellAtHaodaSchema.deleteOne({ id: id });
 
     dmUser(client, process.env.HAODA, "Good job Haoda!");
     sendMessageToServer(
