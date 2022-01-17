@@ -3,16 +3,25 @@ function sendMessageToServer(client, inputChannel, message, guildID) {
     return client.guilds.cache
       .get(guildID)
       .channels.cache.find((channel) => channel.name === inputChannel)
-      .send(message);
+      .send(message)
+      .catch((e) =>
+        console.log("message did not send to server: ", message, e)
+      );
   } else {
     return client.channels.cache
       .find((channel) => channel.name === inputChannel)
-      .send(message);
+      .send(message)
+      .catch((e) =>
+        console.log("message did not send to server: ", message, e)
+      );
   }
 }
 
 function dmUser(client, inputUser, message) {
-  client.users.cache.get(inputUser).send(message);
+  client.users.cache
+    .get(inputUser)
+    .send(message)
+    .catch((e) => console.log("message did not send to user: ", message, e));
 }
 
 async function editMessageById(
@@ -38,7 +47,7 @@ async function editMessageById(
     await message.edit(finalMessage);
     return true;
   } catch (e) {
-    console.error(e);
+    console.log("message did not get edited: ", e);
     return false;
   }
 }
