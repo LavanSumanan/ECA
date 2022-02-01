@@ -67,11 +67,6 @@ client.on("guildMemberAdd", (member) => {
   console.log(`${member.user.username} has joined`);
 });
 
-client.on("messageCreate", (message) => {
-  // fix later
-  return;
-});
-
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isCommand()) return;
   const command = client.slashCommands.get(interaction.commandName);
