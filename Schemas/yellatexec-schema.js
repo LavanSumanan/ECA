@@ -1,7 +1,15 @@
 const mongoose = require("mongoose");
 
 const schema = new mongoose.Schema({
+  exec: {
+    type: String,
+    required: true,
+  },
   message: {
+    type: String,
+    required: true,
+  },
+  channel: {
     type: String,
     required: true,
   },
@@ -11,4 +19,4 @@ const schema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("yellathaoda", schema);
+module.exports = mongoose.model("yellatexec", schema);

@@ -1,12 +1,12 @@
 const { dmUser, sendMessageToServer } = require("../helpers/message");
-const yellAtHaodaSchema = require("../Schemas/yellathaoda-schema");
+const yellAtExecSchema = require("../Schemas/yellatexec-schema");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 
 module.exports = {
   level: "mod",
   data: new SlashCommandBuilder()
-    .setName("stopyellingathaoda")
-    .setDescription("Stop yelling at Haoda!")
+    .setName("stopyellingatexec")
+    .setDescription("Stop yelling at an exec!")
     .addStringOption((option) =>
       option
         .setName("id")
@@ -16,11 +16,12 @@ module.exports = {
   async execute(interaction) {
     const client = interaction.client;
     const id = interaction.options.getString("id");
+    console.log("id:\n", id);
 
     let task;
     try {
-      task = await yellAtHaodaSchema.findOne({
-        id: id,
+      task = await yellAtExecSchema.findOne({
+        id,
       });
     } catch (e) {
       console.error(e);
@@ -28,27 +29,29 @@ module.exports = {
 
     if (!task) {
       interaction.reply({
-        content: "Sorry, I can't find a task for Haoda with that id!",
+        content: "Sorry, I can't find a task for an exec with that id!",
         ephemeral: true,
       });
       return;
     }
 
     const message = task.message;
+    const exec = task.exec;
+    const channel = task.channel;
 
-    console.log("no longer yelling this at haoda: ", message);
+    console.log("no longer yelling this at an exec: ", message);
 
-    await yellAtHaodaSchema.deleteOne({ id: id });
+    await yellAtExecSchema.deleteOne({ id: id });
 
-    dmUser(client, process.env.HAODA, "Good job Haoda!");
+    dmUser(client, exec, `Good job <@${exec}> on finishing ${message}!`);
     sendMessageToServer(
       client,
-      "general",
-      `Everyone congratulate Haoda on finishing this task: ${message}`,
+      channel,
+      `Congratulate <@${exec}> on finishing this task: ${message}`,
       process.env.PROD_ID
     );
 
-    const post = `Thanks! I'll tell Haoda... good job!`;
+    const post = `Thanks! I'll tell <@${exec}>... good job!`;
 
     interaction.reply({
       content: post,
