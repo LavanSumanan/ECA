@@ -1,5 +1,16 @@
 require("dotenv").config();
-const { sendMessageToServer, dmUser } = require("../helpers/message");
+const {
+  sendMessageToServer,
+  dmUser,
+  editMessageById,
+  sendEmbedToServer,
+} = require("../helpers/message");
+
+const { testEmbed } = require("./testEmbed");
+const embed = testEmbed({
+  appreciated: "894019356705562674",
+  appreciationMessage: "test",
+});
 
 module.exports = {
   name: "ready",
@@ -8,7 +19,9 @@ module.exports = {
     // -----------------------------------ECA Test Server----------------------------------
     // sendMessageToServer(client, "general", "test", process.env.GUILD_ID);
     // -------------------------------------ACE Server-------------------------------------
-    // sendMessageToServer(client, "general", "", process.env.PROD_ID);
+    // sendMessageToServer(client, "bot-stuffs", "", process.env.PROD_ID);
+    // editMessageById(client, "bot-stuffs", "929475949819478118", "", true);
+    // sendEmbedToServer(client, "bot-stuffs", embed, process.env.PROD_ID);
     // ---------------------------------------User DM--------------------------------------
     // dmUser(client, process.env.BOT_OWNER, "test123");
   },

@@ -1,3 +1,5 @@
+const appreciateEmbed = require("../embeds/appreciate-embed");
+
 function sendMessageToServer(client, inputChannel, message, guildID) {
   if (guildID) {
     return client.guilds.cache
@@ -14,6 +16,21 @@ function sendMessageToServer(client, inputChannel, message, guildID) {
       .catch((e) =>
         console.log("message did not send to server: ", message, e)
       );
+  }
+}
+
+function sendEmbedToServer(client, inputChannel, embed, guildID) {
+  if (guildID) {
+    return client.guilds.cache
+      .get(guildID)
+      .channels.cache.find((channel) => channel.name === inputChannel)
+      .send({ embeds: [embed] })
+      .catch((e) => console.log("embed did not send to server: ", e));
+  } else {
+    return client.channels.cache
+      .find((channel) => channel.name === inputChannel)
+      .send(message)
+      .catch((e) => console.log("embed did not send to server: ", e));
   }
 }
 
@@ -56,4 +73,5 @@ module.exports = {
   sendMessageToServer: sendMessageToServer,
   dmUser: dmUser,
   editMessageById: editMessageById,
+  sendEmbedToServer: sendEmbedToServer,
 };
