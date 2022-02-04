@@ -42,12 +42,16 @@ module.exports = {
 
     const embedOptions = { appreciator, appreciated, appreciationMessage };
 
-    const post = `**${appreciator} wanted to thank <@${appreciated}> for the following**:
-  > ${appreciationMessage}
-  **Thanks for making *ACE* a better pl*ACE!*** <:cat_love:799494817250803762>`;
-
     const embed = embedHandler("appreciate", embedOptions);
 
+    if (appreciated) {
+      sendMessageToServer(
+        client,
+        "general",
+        `<@${appreciated}>`,
+        process.env.PROD_ID
+      );
+    }
     sendEmbedToServer(client, "general", embed, process.env.PROD_ID);
 
     interaction.reply({
