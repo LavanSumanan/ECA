@@ -21,7 +21,7 @@ function makeAppreciateEmbed(options) {
     );
   }
   embed.addField("We appreciate you!", catLove);
-  embed.setFooter("For help using ECA, please contact #Leben3185");
+  embed.setFooter("For help using ECA, type /help or contact #Leben3185");
   return embed;
 }
 

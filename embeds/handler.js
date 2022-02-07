@@ -1,5 +1,5 @@
 const { makeAppreciateEmbed } = require("./appreciate-embed");
-const { makeInfoEmbed } = require("./info-embed");
+const { makeHelpFeedbackEmbed } = require("./help-feedback-embed");
 
 const aceIconURL =
   "https://static.wixstatic.com/media/c564dd_738bdb48aa28415e985be672213f298c~mv2.png/v1/fill/w_254,h_402,al_c,q_85,usm_0.66_1.00_0.01/c564dd_738bdb48aa28415e985be672213f298c~mv2.webp";
@@ -20,9 +20,8 @@ function embedHandler(type, options) {
   const thumbnail = options.thumbnail || "";
   const fields = options.fields || "";
   const image = options.image || "";
-  const footer = options.footer || {
-    text: "For help using ECA, please contact #Leben3185",
-  };
+  const footer =
+    options.footer || "For help using ECA, type /help or contact #Leben3185";
 
   cleanedOptions = {
     color,
@@ -41,8 +40,8 @@ function embedHandler(type, options) {
   switch (type) {
     case "appreciate":
       return makeAppreciateEmbed(cleanedOptions);
-    case "info":
-      return makeInfoEmbed(cleanedOptions);
+    case "help-feedback":
+      return makeHelpFeedbackEmbed(cleanedOptions);
     default:
       return makeGenericEmbed(cleanedOptions);
   }
