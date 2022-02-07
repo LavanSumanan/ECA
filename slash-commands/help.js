@@ -23,8 +23,7 @@ module.exports = {
     const client = interaction.client;
     const options = interaction.options;
     const command = options.get("command") && options.get("command").value;
-
-    console.log(command);
+    const channel = interaction.channelId;
 
     let embed;
 
@@ -50,7 +49,7 @@ module.exports = {
       embed = makeHelpEmbed();
     }
 
-    sendEmbedToServer(client, "bot-stuffs", embed, process.env.PROD_ID);
+    sendEmbedToServer(client, channel, embed, process.env.PROD_ID, true);
 
     interaction.reply({
       content: "Sent!",

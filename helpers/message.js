@@ -19,7 +19,13 @@ function sendMessageToServer(client, inputChannel, message, guildID) {
   }
 }
 
-function sendEmbedToServer(client, inputChannel, embed, guildID) {
+function sendEmbedToServer(client, inputChannel, embed, guildID, id) {
+  if (id) {
+    return client.channels.cache
+      .get(inputChannel)
+      .send({ embeds: [embed] })
+      .catch((e) => console.log("embed did not send to server: ", e));
+  }
   if (guildID) {
     return client.guilds.cache
       .get(guildID)
