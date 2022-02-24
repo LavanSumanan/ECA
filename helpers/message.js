@@ -19,6 +19,23 @@ function sendMessageToServer(client, inputChannel, message, guildID) {
   }
 }
 
+function replyToServerMessage(client, inputChannel, messageId, reply, guildID) {
+  if (guildID) {
+    return client.guilds.cache
+      .get(guildID)
+      .channels.cache.find((channel) => channel.name === inputChannel)
+      .messages.fetch(messageId)
+      .then((message) => message.reply(reply))
+      .catch((e) => console.log("reply did not send to server: ", reply, e));
+  } else {
+    return client.channels.cache
+      .find((channel) => channel.name === inputChannel)
+      .messages.fetch(messageId)
+      .then((message) => message.reply(reply))
+      .catch((e) => console.log("message did not send to server: ", reply, e));
+  }
+}
+
 function sendEmbedToServer(client, inputChannel, embed, guildID, id) {
   if (id) {
     return client.channels.cache
@@ -80,4 +97,5 @@ module.exports = {
   dmUser: dmUser,
   editMessageById: editMessageById,
   sendEmbedToServer: sendEmbedToServer,
+  replyToServerMessage: replyToServerMessage,
 };
