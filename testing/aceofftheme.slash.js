@@ -1,6 +1,9 @@
 const { editMessageById, sendMessageToServer } = require("../helpers/message");
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const trackedmessageSchema = require("../Schemas/trackedmessage-schema");
+const getAceOffs = require("../db/aceOff/getAceOffs");
+const updateAceOffs = require("../db/aceOff/updateAceOffs");
+const getTrackedMessageId = require("../db/trackedMessages/getTrackedMesssageId");
+const updateTrackedMessage = require("../db/trackedMessages/updateTrackedMessage");
 
 module.exports = {
   level: "public",
@@ -31,7 +34,7 @@ module.exports = {
     const client = interaction.client;
     const theme = interaction.options.getString("theme");
     const emojis = interaction.options.getString("emojis");
-    const wantsCredit = interaction.options.getBoolean("credit");``
+    const wantsCredit = interaction.options.getBoolean("credit");
     console.log(theme, emojis, wantsCredit);
     const intro =
       "Got it! Your ace-off theme suggestion will look like this:\n";
@@ -39,73 +42,30 @@ module.exports = {
       ? `This week's theme is **${theme}** ${emojis} suggested by ${interaction.user}!`
       : `This week's theme is **${theme}** ${emojis}!`;
 
-    console.log(post);
+    let aceOffs = await getAceOffs();
+    aceOffs = aceOffs + post + "\n";
+    updateAceOffs(aceOffs);
 
-    let aceOffThemeListMsg;
-    try {
-      aceOffThemeListMsg = await trackedmessageSchema.find({
-        name: "aceOffThemeList",
-      });
-    } catch (e) {
-      console.error(e);
-    }
+    let msgid = await getTrackedMessageId("aceOffThemeList");
+    let edited = false;
 
-    if (
-      !aceOffThemeListMsg ||
-      !aceOffThemeListMsg[0] ||
-      !aceOffThemeListMsg[0].msgid
-    ) {
-      const message = await sendMessageToServer(
-        client,
-        "bot-stuffs",
-        post,
-        process.env.PROD_ID
-      );
-      console.log(message.id);
-
-      if (aceOffThemeListMsg.length > 0) {
-        await trackedmessageSchema.deleteMany({});
-      }
-
+    if (msgid) {
       try {
-        await new trackedmessageSchema({
-          name: "aceOffThemeList",
-          msgid: message.id,
-        }).save();
+        edited = await editMessageById(client, "bot-stuffs", msgid, aceOffs);
       } catch (e) {
         console.error(e);
       }
-    } else {
-      const msgid = aceOffThemeListMsg[0].msgid;
-      const edited = await editMessageById(
+    }
+
+    if (!edited) {
+      const message = await sendMessageToServer(
         client,
         "bot-stuffs",
-        msgid,
-        post,
-        true
+        aceOffs,
+        process.env.PROD_ID
       );
-      if (!edited) {
-        const message = await sendMessageToServer(
-          client,
-          "bot-stuffs",
-          post,
-          process.env.PROD_ID
-        );
-        console.log(message.id);
-
-        if (aceOffThemeListMsg.length > 0) {
-          await trackedmessageSchema.deleteMany({});
-        }
-
-        try {
-          await new trackedmessageSchema({
-            name: "aceOffThemeList",
-            msgid: message.id,
-          }).save();
-        } catch (e) {
-          console.error(e);
-        }
-      }
+      message.pin();
+      updateTrackedMessage("aceOffThemeList", message.id);
     }
 
     interaction.reply({

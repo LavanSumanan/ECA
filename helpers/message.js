@@ -73,9 +73,7 @@ async function editMessageById(
 ) {
   let message;
   try {
-    message = await client.channels.cache
-      .find((channel) => channel.name === inputChannel)
-      .messages.fetch(messageId);
+    message = await fetchMessageById(client, inputChannel, messageId);
 
     let finalMessage;
     if (toAppend) {
@@ -92,10 +90,18 @@ async function editMessageById(
   }
 }
 
+function fetchMessageById(client, inputChannel, messageId) {
+  return client.channels.cache
+    .find((channel) => channel.name === inputChannel)
+    .messages.fetch(messageId)
+    .catch((e) => console.error(e));
+}
+
 module.exports = {
   sendMessageToServer: sendMessageToServer,
   dmUser: dmUser,
   editMessageById: editMessageById,
   sendEmbedToServer: sendEmbedToServer,
   replyToServerMessage: replyToServerMessage,
+  fetchMessageById: fetchMessageById,
 };
