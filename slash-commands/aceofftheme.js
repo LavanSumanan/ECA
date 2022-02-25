@@ -51,7 +51,7 @@ module.exports = {
 
     if (msgid) {
       try {
-        edited = await editMessageById(client, "bot-stuffs", msgid, aceOffs);
+        edited = await editMessageById(client, "exec-general", msgid, aceOffs);
       } catch (e) {
         console.error(e);
       }
@@ -60,7 +60,7 @@ module.exports = {
     if (!edited) {
       const message = await sendMessageToServer(
         client,
-        "bot-stuffs",
+        "exec-general",
         aceOffs,
         process.env.PROD_ID
       );
