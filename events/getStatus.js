@@ -18,8 +18,8 @@ module.exports = {
       console.error(e);
     }
 
-    const name = status[0].name || "feedback!";
-    const type = status[0].type || "LISTENING";
+    const name = (status[0] && status[0].name) || "feedback!";
+    const type = (status[0] && status[0].type) || "LISTENING";
 
     client.user.setPresence({
       activities: [

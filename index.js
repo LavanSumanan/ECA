@@ -7,7 +7,6 @@ const { Routes } = require("discord-api-types/v9"); // also to access discord ap
 const Discord = require("discord.js");
 const { Client, Intents, Collection } = require("discord.js"); // classes from discord.js library
 //const { token, prefix, guildId } = require("./Data/config.json");
-const mongoose = require("mongoose");
 require("dotenv").config();
 
 // Set up Client
