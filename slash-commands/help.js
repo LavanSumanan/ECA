@@ -1,6 +1,9 @@
 const { makeHelpFeedbackEmbed } = require("../embeds/help-feedback-embed");
 const { makeHelpBirthdayEmbed } = require("../embeds/help-birthday-embed");
 const { makeHelpAppreciateEmbed } = require("../embeds/help-appreciate-embed");
+const {
+  makeHelpAceOffThemeEmbed,
+} = require("../embeds/help-aceofftheme-embed");
 const { makeHelpEmbed } = require("../embeds/help-embed");
 const { sendEmbedToServer } = require("../helpers/message");
 const { SlashCommandBuilder } = require("@discordjs/builders");
@@ -18,6 +21,7 @@ module.exports = {
         .addChoice("feedback", "feedback")
         .addChoice("birthday", "birthday")
         .addChoice("appreciate", "appreciate")
+        .addChoice("aceofftheme", "aceofftheme")
     ),
   async execute(interaction) {
     const client = interaction.client;
@@ -43,6 +47,11 @@ module.exports = {
           process.env.GUILD_ID != process.env.PROD_ID &&
             console.log("appreciate help");
           embed = makeHelpAppreciateEmbed();
+          break;
+        case "aceofftheme":
+          process.env.GUILD_ID != process.env.PROD_ID &&
+            console.log("aceofftheme help");
+          embed = makeHelpAceOffThemeEmbed();
           break;
       }
     } else {
