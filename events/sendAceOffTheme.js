@@ -50,7 +50,17 @@ module.exports = {
   async execute(client) {
     const date = getTime();
     const msPassed = (date.getTime() - estOffset) % dayInMs;
-    const msToWait = dayInMs - msPassed + noonInMs;
+    let msToWait =
+      msPassed > noonInMs ? dayInMs - msPassed + noonInMs : noonInMs - msPassed;
+    const beforeNoon = date.getHours() < 12;
+    const currDay = date.getDay();
+
+    if (beforeNoon) {
+      msToWait += ((6 - (currDay - 1)) % 7) * dayInMs;
+    } else {
+      msToWait += (6 - currDay) * dayInMs;
+    }
+
     console.log(`waiting time in ms: ${msToWait}\n
     waiting time in minutes: ${msToWait / 1000 / 60}`);
 
