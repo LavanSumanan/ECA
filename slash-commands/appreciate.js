@@ -45,14 +45,24 @@ module.exports = {
     const embed = embedHandler("appreciate", embedOptions);
 
     if (appreciated) {
-      sendMessageToServer(
-        client,
-        "general",
-        `<@${appreciated}>`,
-        process.env.PROD_ID
-      );
+      try {
+        sendMessageToServer(
+          client,
+          "general",
+          `<@${appreciated}>`,
+          process.env.PROD_ID
+        );
+      } catch (e) {
+        console.error(e);
+      }
     }
-    sendEmbedToServer(client, "general", embed, process.env.PROD_ID);
+    sendEmbedToServer(
+      client,
+      "general",
+      embed,
+      process.env.PROD_ID,
+      "756315077937856512"
+    );
 
     interaction.reply({
       content:

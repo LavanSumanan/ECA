@@ -40,7 +40,7 @@ module.exports = {
     if (publicity === "private") {
       sendMessageToServer(
         client,
-        "private-feedback-channel",
+        "909547100658860062",
         `${currDate} @ ${currTime}: ${message}`,
         process.env.GUILD_ID
       );
@@ -51,7 +51,7 @@ module.exports = {
     } else if (publicity === "public") {
       sendMessageToServer(
         client,
-        "feedback-boogie",
+        "890683943672754218",
         `${currDate} @ ${currTime}: ${message}`,
         process.env.GUILD_ID
       );
