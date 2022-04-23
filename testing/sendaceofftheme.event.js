@@ -68,9 +68,9 @@ module.exports = {
       setInterval(async () => {
         console.log("(set interval)");
         await sendAceOffTheme(client, "bot-stuffs");
-      }, 20000);
-      // }, weekInMs);
-    }, 10000);
-    // }, msToWait);
+        // }, 20000);
+      }, weekInMs);
+      // }, 10000);
+    }, msToWait);
   },
 };
