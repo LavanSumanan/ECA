@@ -47,7 +47,7 @@ function replyToServerMessage(client, inputChannel, messageId, reply, guildID) {
 function sendEmbedToServer(client, inputChannel, embed, guildID, id) {
   if (id) {
     return client.channels.cache
-      .get(id)
+      .get(inputChannel)
       .send({ embeds: [embed] })
       .catch((e) => console.log("embed did not send to server: ", e));
   }

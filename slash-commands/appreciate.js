@@ -58,10 +58,10 @@ module.exports = {
     }
     sendEmbedToServer(
       client,
-      "general",
+      "756315077937856512",
       embed,
       process.env.PROD_ID,
-      "756315077937856512"
+      true
     );
 
     interaction.reply({
