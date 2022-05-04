@@ -31,6 +31,7 @@ if (process.env.ENV == "DEV") {
 
 for (const file of eventFiles) {
   let event;
+  if (file.endsWith(".deprecated.js")) continue;
   if (file.endsWith(".event.js")) {
     event = require(`./testing/${file}`);
   } else {
