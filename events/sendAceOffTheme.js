@@ -11,6 +11,7 @@ const {
   fetchMessageById,
   editMessageById,
 } = require("../helpers/message");
+const { EXECGENERAL, ACEOFF } = require("../helpers/channelConstants");
 
 const dayInMs = 86400000;
 const weekInMs = 604800000;
@@ -24,7 +25,7 @@ async function sendAceOffTheme(client, channel) {
     console.log("ACE off queue is empty!");
     sendMessageToServer(
       client,
-      "exec-general",
+      EXECGENERAL,
       "The ace-off theme queue is empty!",
       process.env.PROD_ID
     );
@@ -33,7 +34,7 @@ async function sendAceOffTheme(client, channel) {
 
   const themeList = aceOffs.split("\n");
   const theme = themeList.shift();
-  sendMessageToServer(client, "ace-off", theme, process.env.PROD_ID);
+  sendMessageToServer(client, ACEOFF, theme, process.env.PROD_ID);
 
   aceOffs = themeList.join("\n");
   updateAceOffs(aceOffs);
@@ -41,7 +42,7 @@ async function sendAceOffTheme(client, channel) {
   const themeMessageId = await getTrackedMessageId("aceOffThemeList");
   aceOffs =
     aceOffs || "ACE off theme queue is empty! Ask members to suggest more!";
-  editMessageById(client, "exec-general", themeMessageId, aceOffs);
+  editMessageById(client, EXECGENERAL, themeMessageId, aceOffs);
 }
 
 module.exports = {
