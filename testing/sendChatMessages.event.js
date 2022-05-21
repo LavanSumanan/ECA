@@ -27,9 +27,9 @@ module.exports = {
     // sendMessageToServer(client, "general", "test", process.env.GUILD_ID);
     // -------------------------------------ACE Server-------------------------------------
     // sendMessageToServer(client, BOTSTUFFS, "", process.env.PROD_ID);
-    // replyToServerMessage(client,"general","961091520784650301","",process.env.PROD_ID);
+    // replyToServerMessage(client, GENERAL,"961091520784650301","",process.env.PROD_ID);
     // editMessageById(client, "bot-stuffs", "929475949819478118", "", true);
-    // sendEmbedToServer(client, "bot-stuffs", embed, process.env.PROD_ID);
+    // sendEmbedToServer(client, BOTSTUFFS, embed, process.env.PROD_ID);
     // ---------------------------------------User DM--------------------------------------
     // dmUser(client, process.env.BOT_OWNER, "test123");
   },

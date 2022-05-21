@@ -5,6 +5,7 @@ const {
 const { embedHandler } = require("../embeds/handler");
 const { testEmbed } = require("./testEmbed");
 const { SlashCommandBuilder } = require("@discordjs/builders");
+const { BOTSTUFFS } = require("../helpers/channelConstants");
 require("dotenv").config();
 
 module.exports = {
@@ -53,7 +54,7 @@ module.exports = {
     // const embed = testEmbed(embedOptions);
     const embed = embedHandler("appreciate", embedOptions);
 
-    sendEmbedToServer(client, "bot-stuffs", embed, process.env.PROD_ID);
+    sendEmbedToServer(client, BOTSTUFFS, embed, process.env.PROD_ID);
 
     interaction.reply({
       content:
