@@ -58,7 +58,7 @@ module.exports = {
       embed = makeHelpEmbed();
     }
 
-    sendEmbedToServer(client, channel, embed, process.env.PROD_ID, true);
+    sendEmbedToServer(client, channel, embed, process.env.PROD_ID);
 
     interaction.reply({
       content: "Sent!",

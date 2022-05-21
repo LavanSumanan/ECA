@@ -42,8 +42,8 @@ function replyToServerMessage(client, inputChannel, messageId, reply, guildID) {
   }
 }
 
-function sendEmbedToServer(client, inputChannel, embed, guildID, id) {
-  if (id) {
+function sendEmbedToServer(client, inputChannel, embed, guildID) {
+  if ([0, 1, 2, 3, 4, 5, 6, 7, 8, 9].includes(parseInt(inputChannel[0]))) {
     return client.channels.cache
       .get(inputChannel)
       .send({ embeds: [embed] })
@@ -65,7 +65,6 @@ function sendEmbedToServer(client, inputChannel, embed, guildID, id) {
 
 function dmUser(client, inputUser, message) {
   client.users.cache
-    .get(inputUser)
     .send(message)
     .catch((e) => console.log("message did not send to user: ", message, e));
 }

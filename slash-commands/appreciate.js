@@ -56,13 +56,7 @@ module.exports = {
         console.error(e);
       }
     }
-    sendEmbedToServer(
-      client,
-      "756315077937856512",
-      embed,
-      process.env.PROD_ID,
-      true
-    );
+    sendEmbedToServer(client, "756315077937856512", embed, process.env.PROD_ID);
 
     interaction.reply({
       content:
