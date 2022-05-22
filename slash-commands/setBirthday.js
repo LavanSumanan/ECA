@@ -17,7 +17,7 @@ const months = [
   ["June", "30"],
   ["July", "31"],
   ["August", "31"],
-  ["Sepetember", "30"],
+  ["September", "30"],
   ["October", "31"],
   ["November", "30"],
   ["December", "31"],
