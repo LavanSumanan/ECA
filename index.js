@@ -38,9 +38,9 @@ for (const file of eventFiles) {
     event = require(`./events/${file}`);
   }
   if (event.once) {
-    client.once(event.name, event.execute());
+    client.once(event.name, event.execute);
   } else {
-    client.on(event.name, event.execute());
+    client.on(event.name, event.execute);
   }
 }
 
