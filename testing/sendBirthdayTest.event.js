@@ -2,7 +2,7 @@
 // const fs = require("fs");
 // const fileName = "./Data/birthdays.json";
 
-const birthdaySchema = require("../Schemas/birthday-schema");
+const birthdaySchema = require("../Schemas/birthday");
 const { getTime } = require("../helpers/time");
 const { sendMessageToServer, dmUser } = require("../helpers/message");
 const dayInMs = 86400000;

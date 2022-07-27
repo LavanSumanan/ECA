@@ -1,6 +1,6 @@
 const { dmUser, sendMessageToServer } = require("../helpers/message");
 const { getTime } = require("../helpers/time");
-const yellAtExecSchema = require("../Schemas/yellatexec-schema");
+const yellAtExecSchema = require("../Schemas/yellatexec");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 
 module.exports = {

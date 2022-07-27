@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const statusSchema = require("../Schemas/status-schema");
+const statusSchema = require("../Schemas/status");
 
 module.exports = {
   level: "mod",

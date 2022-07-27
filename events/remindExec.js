@@ -1,5 +1,5 @@
 const { sendMessageToServer, dmUser } = require("../helpers/message");
-const yellAtExecSchema = require("../Schemas/yellatexec-schema");
+const yellAtExecSchema = require("../Schemas/yellatexec");
 
 module.exports = {
   name: "ready",

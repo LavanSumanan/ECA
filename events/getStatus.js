@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const statusSchema = require("../Schemas/status-schema");
+const statusSchema = require("../Schemas/status");
 
 module.exports = {
   name: "ready",

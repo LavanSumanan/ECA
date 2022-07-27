@@ -1,4 +1,4 @@
-const trackedmessageSchema = require("../../Schemas/trackedmessage-schema");
+const trackedmessageSchema = require("../../Schemas/trackedmessage");
 
 async function updateTrackedMessage(name, newid) {
   let trackedmessageEntry;

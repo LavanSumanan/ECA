@@ -1,4 +1,4 @@
-const aceOffSchema = require("../../Schemas/ace-offs-schema");
+const aceOffSchema = require("../../Schemas/ace-offs");
 
 async function getAceOffs() {
   let aceOffEntry;
