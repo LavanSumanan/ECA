@@ -25,7 +25,7 @@ function makeLinksAndResourcesEmbeds() {
   );
   aceResourcesEmbed.addField(
     "⭐ ACE Spring 2022 Drive Folder",
-    "https://bit.ly/ACENewMemberGuide"
+    "https://www.tinyurl.com/aceMusicS22"
   );
   aceResourcesEmbed.addField(
     "🎵 SIB Download",
@@ -46,7 +46,7 @@ function makeLinksAndResourcesEmbeds() {
   );
   aceResourcesEmbed.addField(
     "🎙️ How to Record for Online ACE",
-    "https://drive.google.com/file/d/1jbO_lo_-FKCehNrfduSj5IfE2ie-wa0w/view?usp=sharing"
+    "https://bit.ly/3NTZ8t7"
   );
 
   let socialEmbed = new MessageEmbed();
@@ -77,7 +77,7 @@ function makeLinksAndResourcesEmbeds() {
   );
   safetyResourcesEmbed.addField(
     "💞 Ombudspeople",
-    "If you prefer talking to humans rather than bots, reach out to our ombudspeople (Catie: krystal#1000). Go here to let us know you're interested in being an ombudsperson: https://bit.ly/S22ACEOmbuds"
+    "If you prefer talking to humans rather than bots, reach out to our ombudspeople (Catie: krystal#1000 and Ray(a): Ramer93#8480). If you're interested in being an ombudsperson, let us know here: https://bit.ly/S22ACEOmbuds"
   );
   safetyResourcesEmbed.addField(
     "🏘️ Waterloo University and Community Resources doc",
@@ -101,6 +101,30 @@ function makeLinksAndResourcesEmbeds() {
   currentLinks.addField(
     "⭐ ACE S22 Music Drive",
     "https://www.tinyurl.com/aceMusicS22"
+  );
+  currentLinks.addField(
+    "☎️ Call Sheet (In-Person)",
+    "https://bit.ly/S22ACECallSheet"
+  );
+  currentLinks.addField(
+    "🎙️ How to Record for Online ACE",
+    "https://bit.ly/3NTZ8t7"
+  );
+  currentLinks.addField(
+    "📜🐿 History Recordings Submission Form",
+    "https://forms.gle/2Xu92PPoFDXXq67W9"
+  );
+  currentLinks.addField(
+    "📜🐿 History Solo Submission Form",
+    "https://forms.gle/euTWHV6cwVEACb7W8"
+  );
+  currentLinks.addField(
+    "🔥🎶 UWACC EOT CONCERT TICKETS",
+    "https://tinyurl.com/uwacc-concert"
+  );
+  currentLinks.addField(
+    "👩‍🦲🎮 Mii Recordings Submission Form",
+    "https://forms.gle/oscRGif7xmM4Sqii7"
   );
 
   let embeds = [
