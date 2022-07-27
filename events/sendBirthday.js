@@ -1,33 +1,19 @@
-const birthdaySchema = require("../Schemas/birthday");
-const { getTime } = require("../helpers/time");
-const { sendMessageToServer, dmUser } = require("../helpers/message");
-const { GENERAL } = require("../helpers/channelConstants");
-const dayInMs = 86400000;
 require("dotenv").config();
-const estOffset = process.env.ENV === "DEV" ? 5 * 60 * 60 * 1000 : 0;
+const { getTime, getCurrentDate } = require("../helpers/time");
+const { sendMessageToServer } = require("../helpers/message");
+const { GENERAL } = require("../helpers/channelConstants");
+const { getBirthdaysByMonthDay } = require("../db/birthdays/get");
+
+const dayInMs = 1000 * 60 * 60 * 24;
+const estOffset = process.env.ENV === "DEV" ? 1000 * 60 * 60 * 5 : 0;
 
 async function sendBirthdayMessage(client, channel) {
-  const date = getTime();
-  const currMonth = date.getMonth() + 1;
-  const currDay = date.getDate();
-  let birthdays;
-  try {
-    birthdays = await birthdaySchema.find({
-      month: currMonth,
-      day: currDay,
-    });
-    console.log(birthdays);
-  } catch (e) {
-    console.error(e);
-  }
+  const { currMonth, currDay } = getCurrentDate();
+  const birthdays = await getBirthdaysByMonthDay(currMonth, currDay);
 
-  for (let birthday of birthdays) {
-    const user = client.users.cache.get(birthday.userid);
-    const userMonth = birthday.month;
-    const userDay = birthday.day;
-    console.log(
-      `Happy birthday to ${user} on month: ${userMonth}, day: ${userDay}`
-    );
+  for (const { userid, month, day } of birthdays) {
+    const user = client.users.cache.get(userid);
+    console.log(`Happy birthday to ${user} on month: ${month}, day: ${day}`);
     try {
       sendMessageToServer(
         client,
@@ -45,13 +31,32 @@ module.exports = {
   name: "ready",
   once: true,
   async execute(client) {
+    if (process.env.ENV === "DEV") {
+      console.log("[EVENT WARNING] sendBirthday turned off in dev");
+      return;
+    }
+
     const date = getTime();
     const msPassed = (date.getTime() - estOffset) % dayInMs;
     const msToWait = dayInMs - msPassed;
     console.log(`local date: ${date.toLocaleDateString()}`);
-    console.log(`epoch time: ${date.valueOf()}`);
-    console.log(`ms passed: ${msPassed}`);
-    console.log(`ms to wait: ${msToWait}`);
+
+    const currentTime = [
+      Math.trunc(msPassed / 1000 / 3600),
+      Math.trunc((msPassed / 1000 / 60) % 60),
+    ];
+    const waitingTime = [
+      Math.trunc((dayInMs - msPassed) / 1000 / 3600),
+      Math.trunc(((dayInMs - msPassed) / 1000 / 60) % 60),
+    ];
+    console.log("currentTime", currentTime[0], ":", currentTime[1]);
+    console.log("waitingTime", waitingTime[0], ":", waitingTime[1]);
+    console.log(
+      "midnight",
+      currentTime[0] + waitingTime[0],
+      ":",
+      currentTime[1] + waitingTime[1]
+    );
 
     // Wait until midnight the next night
     setTimeout(async () => {
