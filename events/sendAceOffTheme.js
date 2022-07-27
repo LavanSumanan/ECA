@@ -49,7 +49,7 @@ module.exports = {
   name: "ready",
   once: true,
   async execute(client) {
-    if (process.env === "DEV") {
+    if (process.env.ENV === "DEV") {
       console.log("[EVENT WARNING] sendAceOffTheme turned off in dev");
       return;
     }
