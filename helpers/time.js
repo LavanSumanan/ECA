@@ -10,6 +10,12 @@ function dateTime() {
   return convertTZ(new Date(), "Canada/Eastern");
 }
 
+function getCurrentDate() {
+  const date = dateTime();
+  return { currMonth: date.getMonth() + 1, currDay: date.getDate() };
+}
+
 module.exports = {
   getTime: dateTime,
+  getCurrentDate,
 };
