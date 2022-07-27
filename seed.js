@@ -5,7 +5,7 @@ require("dotenv").config();
 const connectToDb = async () => {
   try {
     await mongoose.connect(process.env.MONGO_TEST_URI);
-    console.log("[DB Connection] Seed file");
+    console.log("[DB Connection open] Seed file");
   } catch (err) {
     console.log("[ERROR] Failed to connect to DB: ", err);
     return;
@@ -19,9 +19,14 @@ const seedBirthdays = [
     day: 6,
   },
   {
+    userid: "3",
+    month: 11,
+    day: 6,
+  },
+  {
     userid: "970709253906112572",
     month: 7,
-    day: 30,
+    day: 27,
   },
   {
     userid: "1",
@@ -40,4 +45,5 @@ const seedBirthdays = [
   await birthday.deleteMany({});
   await birthday.insertMany(seedBirthdays);
   await mongoose.connection.close();
+  console.log("[DB Connection close] Seed file");
 })();
