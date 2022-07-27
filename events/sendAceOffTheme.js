@@ -67,8 +67,10 @@ module.exports = {
       msToWait += (6 - currDay) * dayInMs;
     }
 
-    console.log(`waiting time in ms: ${msToWait}\n
-    waiting time in minutes: ${msToWait / 1000 / 60}`);
+    console.log(
+      `[ACE OFF] waiting time in ms: ${msToWait}`,
+      `[ACE OFF] waiting time in minutes: ${msToWait / 1000 / 60}`
+    );
 
     // Wait until noon the next day
     setTimeout(async () => {

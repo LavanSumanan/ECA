@@ -21,7 +21,7 @@ async function sendAceOffTheme(client, channel) {
   let aceOffs = await getAceOffs();
 
   if (!aceOffs || aceOffs.length <= 1) {
-    console.log("ACE off queue is empty!");
+    console.log("[ACE OFF] queue is empty!");
     // sendMessageToServer(client,"exec-general","The ace-off theme queue is empty!",process.env.PROD_ID);
     return;
   }
@@ -56,8 +56,10 @@ module.exports = {
       msToWait += (6 - currDay) * dayInMs;
     }
 
-    console.log(`waiting time in ms: ${msToWait}\n
-    waiting time in minutes: ${msToWait / 1000 / 60}`);
+    console.log(
+      `[ACE OFF] waiting time in ms: ${msToWait}`,
+      `[ACE OFF] waiting time in minutes: ${msToWait / 1000 / 60}`
+    );
 
     // Wait until noon the next day
     setTimeout(async () => {
