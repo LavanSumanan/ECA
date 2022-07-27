@@ -9,7 +9,8 @@
   },
   "scripts": {
     "dev": "nodemon -e js",
-    "start": "node ."
+    "start": "node .",
+    "seed": "node seed.js"
   },
   "keywords": [],
   "author": "Lavan Sumanan",
