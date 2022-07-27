@@ -4,6 +4,7 @@ const getAceOffs = require("../db/aceOff/getAceOffs");
 const updateAceOffs = require("../db/aceOff/updateAceOffs");
 const getTrackedMessageId = require("../db/trackedMessages/getTrackedMesssageId");
 const updateTrackedMessage = require("../db/trackedMessages/updateTrackedMessage");
+require("dotenv").config();
 
 module.exports = {
   level: "public",

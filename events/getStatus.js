@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const statusSchema = require("../Schemas/status");
+require("dotenv").config();
 
 module.exports = {
   name: "ready",

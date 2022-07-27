@@ -1,6 +1,7 @@
 const { dmUser, sendMessageToServer } = require("../helpers/message");
 const yellAtExecSchema = require("../Schemas/yellatexec");
 const { SlashCommandBuilder } = require("@discordjs/builders");
+require("dotenv").config();
 
 module.exports = {
   level: "mod",

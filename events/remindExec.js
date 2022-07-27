@@ -1,5 +1,6 @@
 const { sendMessageToServer, dmUser } = require("../helpers/message");
 const yellAtExecSchema = require("../Schemas/yellatexec");
+require("dotenv").config();
 
 module.exports = {
   name: "ready",
