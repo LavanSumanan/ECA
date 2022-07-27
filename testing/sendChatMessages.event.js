@@ -1,9 +1,11 @@
 require("dotenv").config();
 const {
+  TESTGENERAL,
   GENERAL,
   EXECGENERAL,
   BOTSTUFFS,
   ACEOFF,
+  LINKSANDRESOURCES,
 } = require("../helpers/channelConstants");
 const {
   sendMessageToServer,
@@ -12,24 +14,29 @@ const {
   sendEmbedToServer,
   replyToServerMessage,
 } = require("../helpers/message");
-
-const { testEmbed } = require("./testEmbed");
-const embed = testEmbed({
-  appreciated: "894019356705562674",
-  appreciationMessage: "test",
-});
+const {
+  makeLinksAndResourcesEmbeds,
+} = require("../embeds/links-and-resources-embed");
+const embeds = makeLinksAndResourcesEmbeds();
 
 module.exports = {
   name: "ready",
   once: true,
   async execute(client) {
     // -----------------------------------ECA Test Server----------------------------------
-    // sendMessageToServer(client, "general", "test", process.env.GUILD_ID);
+    // sendMessageToServer(client, TESTGENERAL, "test", process.env.GUILD_ID);
     // -------------------------------------ACE Server-------------------------------------
-    // sendMessageToServer(client, BOTSTUFFS, "", process.env.PROD_ID);
-    // replyToServerMessage(client, GENERAL,"961091520784650301","",process.env.PROD_ID);
-    // editMessageById(client, "bot-stuffs", "929475949819478118", "", true);
-    // sendEmbedToServer(client, BOTSTUFFS, embed, process.env.PROD_ID);
+    // sendMessageToServer(client, GENERAL, "", process.env.PROD_ID);
+    // replyToServerMessage(client, "", "1234", "", process.env.PROD_ID);
+    // editMessageById(client, BOTSTUFFS, "929475949819478118", "", true);
+    // embeds.forEach((embed) => {
+    // sendEmbedToServer(
+    // client,
+    // "843262182132809738",
+    // embed,
+    // process.env.PROD_ID
+    // );
+    // });
     // ---------------------------------------User DM--------------------------------------
     // dmUser(client, process.env.BOT_OWNER, "test123");
   },

@@ -1,6 +1,7 @@
 const birthdaySchema = require("../Schemas/birthday-schema");
 const { getTime } = require("../helpers/time");
 const { sendMessageToServer, dmUser } = require("../helpers/message");
+const { GENERAL } = require("../helpers/channelConstants");
 const dayInMs = 86400000;
 require("dotenv").config();
 const estOffset = process.env.ENV === "DEV" ? 5 * 60 * 60 * 1000 : 0;
@@ -56,11 +57,11 @@ module.exports = {
     setTimeout(async () => {
       console.log("midnight! (set timeout)");
       // check if it's anyone's birthday
-      await sendBirthdayMessage(client, "general");
+      await sendBirthdayMessage(client, GENERAL);
       // wait a day, check again, repeat every day
       setInterval(async () => {
         console.log("(set interval)");
-        await sendBirthdayMessage(client, "general");
+        await sendBirthdayMessage(client, GENERAL);
       }, dayInMs);
     }, msToWait);
   },
