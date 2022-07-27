@@ -5,6 +5,10 @@ module.exports = {
   name: "ready",
   once: true,
   async execute(client) {
+    if (process.ENV === "DEV") {
+      console.log("[EVENT WARNING] remindExec turned off in dev");
+      return;
+    }
     let tasks;
 
     try {

@@ -5,6 +5,10 @@ module.exports = {
   name: "ready",
   once: true,
   async execute(client) {
+    if (process.env === "DEV") {
+      console.log("[EVENT WARNING] getStatus turned off in dev");
+      return;
+    }
     await mongoose.connect(process.env.MONGO_URI || "", {
       keepAlive: true,
     });

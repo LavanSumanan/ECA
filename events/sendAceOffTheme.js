@@ -49,6 +49,11 @@ module.exports = {
   name: "ready",
   once: true,
   async execute(client) {
+    if (process.env === "DEV") {
+      console.log("[EVENT WARNING] sendAceOffTheme turned off in dev");
+      return;
+    }
+
     const date = getTime();
     const msPassed = (date.getTime() - estOffset) % dayInMs;
     let msToWait =
