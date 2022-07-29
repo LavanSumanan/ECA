@@ -18,4 +18,4 @@ async function updateBirthdayByID(userid, month, day) {
   }
 }
 
-module.exports = updateBirthdayByID;
+module.exports = { updateBirthdayByID };
