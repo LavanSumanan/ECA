@@ -48,7 +48,7 @@ async function getBirthdaysByMonthDay(month, day) {
 async function getBirthdayByID(userid) {
   let birthday = null;
   try {
-    birthday = await birthdaySchema.find({
+    birthday = await birthdaySchema.findOne({
       userid,
     });
     console.log(`[LOG] Birthday for user ${userid}:`, birthday);
