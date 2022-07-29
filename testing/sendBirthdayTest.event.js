@@ -58,9 +58,9 @@ module.exports = {
       await sendBirthdayMessage(client, TESTGENERAL);
       setInterval(async () => {
         await sendBirthdayMessage(client, TESTGENERAL);
-        // }, dayInMs);
-        // }, msToWait);
-      }, 20000);
-    }, 5000);
+      }, dayInMs);
+    }, msToWait);
+    // }, 20000);
+    // }, 5000);
   },
 };
