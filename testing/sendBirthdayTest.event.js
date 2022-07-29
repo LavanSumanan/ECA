@@ -11,7 +11,9 @@ async function sendBirthdayMessage(client, channel) {
   const { currMonth, currDay } = getCurrentDate();
   const birthdays = await getBirthdaysByMonthDay(currMonth, currDay);
 
-  for (const { userid, month, day } of birthdays) {
+  for (const birthday of birthdays) {
+    if (birthdays.length == 0) return;
+    const { userid, month, day } = birthday;
     const user = client.users.cache.get(userid);
     console.log(`Happy birthday to ${user} on month: ${month}, day: ${day}`);
     try {
@@ -56,9 +58,9 @@ module.exports = {
       await sendBirthdayMessage(client, TESTGENERAL);
       setInterval(async () => {
         await sendBirthdayMessage(client, TESTGENERAL);
-      }, dayInMs);
-    }, msToWait);
-    // }, 20000);
-    // }, 5000);
+        // }, dayInMs);
+        // }, msToWait);
+      }, 20000);
+    }, 5000);
   },
 };
