@@ -10,6 +10,10 @@ function makeLinksAndResourcesEmbeds() {
     "https://discord.gg/JAgrDBCW9V"
   );
   discordFriendsEmbed.addField(
+    "📜 UWACC Constitution",
+    "https://docs.google.com/document/d/13xxjG7ktlbX-VS6ivFUALXCKDAE3xSj8gqP6z3SiI2U/edit"
+  );
+  discordFriendsEmbed.addField(
     "🇨🇦 Canada-wide A Cappella Discord",
     "https://discord.gg/awhMWhA6E8 (Ping schneids#7022 or DM if link is expired)"
   );
@@ -28,8 +32,16 @@ function makeLinksAndResourcesEmbeds() {
     "https://www.tinyurl.com/aceMusicS22"
   );
   aceResourcesEmbed.addField(
+    "📜 ACE Constitution",
+    "https://docs.google.com/document/d/1WS-JciXUyZrRT-O-8MMsmFkzFNJg5Jt_zM32QiPrBm0/edit"
+  );
+  aceResourcesEmbed.addField(
     "🎵 SIB Download",
     "https://tinyurl.com/uwaccsibdownload"
+  );
+  aceResourcesEmbed.addField(
+    "🎼 How to use Sib",
+    "https://docs.google.com/document/d/1rAklgyv7GRIfIAZR0oSk9fnO6i6_xaGDYaRQs_Vf464/edit"
   );
   aceResourcesEmbed.addField("📆 ACE Calendar", "http://bit.ly/acecalendar");
   aceResourcesEmbed.addField(
@@ -98,33 +110,10 @@ function makeLinksAndResourcesEmbeds() {
   currentLinks.setColor("#9480e6");
   currentLinks.setTitle(":bangbang: Current Topics :bangbang:");
   currentLinks.setDescription("Looking for something? It's probably here!");
-  currentLinks.addField(
-    "⭐ ACE S22 Music Drive",
-    "https://www.tinyurl.com/aceMusicS22"
-  );
-  currentLinks.addField(
-    "☎️ Call Sheet (In-Person)",
-    "https://bit.ly/S22ACECallSheet"
-  );
+  currentLinks.addField("📅 ACE Calendar");
   currentLinks.addField(
     "🎙️ How to Record for Online ACE",
     "https://bit.ly/3NTZ8t7"
-  );
-  currentLinks.addField(
-    "📜🐿 History Recordings Submission Form",
-    "https://forms.gle/2Xu92PPoFDXXq67W9"
-  );
-  currentLinks.addField(
-    "📜🐿 History Solo Submission Form",
-    "https://forms.gle/euTWHV6cwVEACb7W8"
-  );
-  currentLinks.addField(
-    "🔥🎶 UWACC EOT CONCERT TICKETS",
-    "https://tinyurl.com/uwacc-concert"
-  );
-  currentLinks.addField(
-    "👩‍🦲🎮 Mii Recordings Submission Form",
-    "https://forms.gle/oscRGif7xmM4Sqii7"
   );
 
   let embeds = [
