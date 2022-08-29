@@ -1,12 +1,12 @@
 console.clear();
 
 // ----------------------------------------------------IMPORTS----------------------------------------------------
-const fs = require("fs"); // file system
-const { REST } = require("@discordjs/rest"); // to access discord api
-const { Routes } = require("discord-api-types/v9"); // also to access discord api
+const fs = require("fs");
+const { REST } = require("@discordjs/rest");
+const { Routes } = require("discord-api-types/v9");
 const Discord = require("discord.js");
-const { Client, Intents, Collection } = require("discord.js"); // classes from discord.js library
-//const { token, prefix, guildId } = require("./Data/config.json");
+const { Client, Intents, Collection } = require("discord.js");
+const mongoose = require("mongoose");
 require("dotenv").config();
 
 // Set up Client
@@ -15,6 +15,13 @@ const client = new Client({
   intents: intents,
   partials: ["MESSAGE", "CHANNEL", "REACTION"],
 });
+
+// MongoDB setup
+(async () => {
+  await mongoose.connect(process.env.MONGO_URI || "", {
+    keepAlive: true,
+  });
+})();
 
 // -----------------------------------------EVENTS SETUP----------------------------------------------
 let eventFiles = fs
@@ -57,10 +64,9 @@ for (const file of prefixCommandFiles) {
 }
 
 client.on("guildMemberAdd", (member) => {
-  // fix later
+  // TODO: implement this with correct new member information (e.g. new members guide)
+  // perhaps use embeds to make it look nicer
   return;
-
-  // DM people when they join with friendly message to explain how stuff works
   member.send(
     `Hello, ${member.user.username}! Welcome to the ECA test server! Find resources here: [] and here: []`
   );
