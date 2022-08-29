@@ -27,15 +27,11 @@ module.exports = {
     // sendMessageToServer(client, TESTGENERAL, "test", process.env.GUILD_ID);
     // -------------------------------------ACE Server-------------------------------------
     // sendMessageToServer(client, GENERAL, "", process.env.PROD_ID);
-    // replyToServerMessage(client, "", "1234", "", process.env.PROD_ID);
+    // replyToServerMessage(client, "chat", "1234", "", process.env.PROD_ID);
     // editMessageById(client, BOTSTUFFS, "929475949819478118", "", true);
+    // -------------------------UPDATING LINKS AND RESOURCES TEMP FIX----------------------
     // embeds.forEach((embed) => {
-    // sendEmbedToServer(
-    // client,
-    // "843262182132809738",
-    // embed,
-    // process.env.PROD_ID
-    // );
+    // sendEmbedToServer(client, LINKSANDRESOURCES, embed, process.env.PROD_ID);
     // });
     // ---------------------------------------User DM--------------------------------------
     // dmUser(client, process.env.BOT_OWNER, "test123");
