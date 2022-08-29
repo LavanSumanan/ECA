@@ -110,7 +110,7 @@ function makeLinksAndResourcesEmbeds() {
   currentLinks.setColor("#9480e6");
   currentLinks.setTitle(":bangbang: Current Topics :bangbang:");
   currentLinks.setDescription("Looking for something? It's probably here!");
-  currentLinks.addField("📅 ACE Calendar");
+  currentLinks.addField("📆 ACE Calendar", "http://bit.ly/acecalendar");
   currentLinks.addField(
     "🎙️ How to Record for Online ACE",
     "https://bit.ly/3NTZ8t7"
