@@ -1,4 +1,5 @@
 const { MessageEmbed } = require("discord.js");
+const { GENERAL } = require("../helpers/channelConstants");
 
 function makeHelpBirthdayEmbed() {
   let embed = new MessageEmbed();
@@ -12,11 +13,11 @@ function makeHelpBirthdayEmbed() {
   embed.addField("Day", "Enter your birthday day");
   embed.addField(
     "Result",
-    "ECA will wish you at midnight EST on your birthday in the <#756315077937856512> chat!"
+    `ECA will wish you at midnight EST on your birthday in the <#${GENERAL}> chat!`
   );
-  embed.setFooter(
-    "For help with other commands, type /help or contact Leben#3185"
-  );
+  embed.setFooter({
+    text: "For help with other commands, type /help or contact Plasmatic#0001",
+  });
   return embed;
 }
 

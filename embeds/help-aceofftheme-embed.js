@@ -1,4 +1,5 @@
 const { MessageEmbed } = require("discord.js");
+const { ACEOFF } = require("../helpers/channelConstants");
 
 function makeHelpAceOffThemeEmbed() {
   let embed = new MessageEmbed();
@@ -19,10 +20,10 @@ function makeHelpAceOffThemeEmbed() {
   );
   embed.addField(
     "Result",
-    "ECA will pull from a pool of suggested ace off themes and will (eventually) post your theme into the <#811389219787505695> chat!"
+    `ECA will pull from a pool of suggested ace off themes and will (eventually) post your theme into the <#${ACEOFF}> chat!`
   );
   embed.setFooter(
-    "For help with other commands, type /help or contact Leben#3185"
+    "For help with other commands, type /help or contact Plasmatic#0001"
   );
   return embed;
 }

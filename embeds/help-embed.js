@@ -26,12 +26,12 @@ function makeHelpEmbed() {
     "/aceofftheme",
     "Suggest future ace-off themes to ECA!\n·Type /help, select a command, and choose `aceofftheme` for more details.\n·Read the release notes here: https://bit.ly/eca_aceofftheme"
   );
-  embed.setFooter(
-    "For help with specific commands, type /help and select a command, or contact Leben#3185"
-  );
+  embed.setFooter({
+    text: "For help with specific commands, type /help and select a command, or contact Plasmatic#0001",
+  });
   return embed;
 }
 
 module.exports = {
-  makeHelpEmbed: makeHelpEmbed,
+  makeHelpEmbed,
 };

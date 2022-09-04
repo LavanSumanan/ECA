@@ -1,4 +1,5 @@
 const { MessageEmbed } = require("discord.js");
+const { ace } = require("../helpers/emojiConstants");
 
 function makeLinksAndResourcesEmbeds() {
   let discordFriendsEmbed = new MessageEmbed();
@@ -17,14 +18,16 @@ function makeLinksAndResourcesEmbeds() {
     "🇨🇦 Canada-wide A Cappella Discord",
     "https://discord.gg/awhMWhA6E8 (Ping schneids#7022 or DM if link is expired)"
   );
-  discordFriendsEmbed.setFooter("Ping or DM an exec if any link is expired!");
+  discordFriendsEmbed.setFooter({
+    text: "Ping or DM an exec if any link is expired!",
+  });
 
   let aceResourcesEmbed = new MessageEmbed();
   aceResourcesEmbed.setColor("#61c9ca");
   aceResourcesEmbed.setTitle("❗ ACE Resources ❗");
   aceResourcesEmbed.setDescription("New to ACE? Check these out!");
   aceResourcesEmbed.addField(
-    "<:ACE:796639155160612864> New Member Guide",
+    `${ace} New Member Guide`,
     "https://bit.ly/ACENewMemberGuide"
   );
   aceResourcesEmbed.addField(
