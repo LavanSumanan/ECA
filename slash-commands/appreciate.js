@@ -4,6 +4,8 @@ const {
 } = require("../helpers/message");
 const { embedHandler } = require("../embeds/handler");
 const { SlashCommandBuilder } = require("@discordjs/builders");
+const { GENERAL } = require("../helpers/channelConstants");
+const { catLove } = require("../helpers/emojiConstants");
 require("dotenv").config();
 
 module.exports = {
@@ -48,7 +50,7 @@ module.exports = {
       try {
         sendMessageToServer(
           client,
-          "general",
+          GENERAL,
           `<@${appreciated}>`,
           process.env.PROD_ID
         );
@@ -56,11 +58,10 @@ module.exports = {
         console.error(e);
       }
     }
-    sendEmbedToServer(client, "756315077937856512", embed, process.env.PROD_ID);
+    sendEmbedToServer(client, GENERAL, embed, process.env.PROD_ID);
 
     interaction.reply({
-      content:
-        "Sent! And thank *you* for appreciating other ACE members. I appreciate you for that! <:cat_love:799494817250803762>",
+      content: `Sent! And thank *you* for appreciating other ACE members. I appreciate you for that! ${catLove}`,
       ephemeral: true,
     });
   },
