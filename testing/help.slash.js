@@ -18,10 +18,10 @@ module.exports = {
       option
         .setName("command")
         .setDescription("Pick a command to find out more")
-        .addChoice("feedback", "feedback")
-        .addChoice("birthday", "birthday")
-        .addChoice("appreciate", "appreciate")
-        .addChoice("aceofftheme", "aceofftheme")
+        .addChoices({name: "feedback", value: "feedback"},
+            {name: "birthday", value: "birthday"},
+            {name: "appreciate", value: "appreciate"},
+            {name: "aceofftheme", value: "aceofftheme"})
     ),
   async execute(interaction) {
     const client = interaction.client;
