@@ -1,6 +1,7 @@
-const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder } = require("@discordjs/builders");
 const { ButtonStyle } = require("discord-api-types/v8");
 const assert = require("assert");
+const EventEmitter = require("events");
+const {SlashCommandBuilder, ActionRowBuilder, ButtonBuilder} = require("@discordjs/builders");
 
 // TODO: move to util file
 class Signal extends EventEmitter {
@@ -34,12 +35,12 @@ class Signal extends EventEmitter {
 // TODO: check roles on startup
 const MESSAGES = [
   {
-    "text": "Welcome to ACE! Let me help you get started with some things",
-    "roles": []
+    text: "Welcome to ACE! Let me help you get started with some things",
+    roles: []
   },
   {
-    "text": "What is your section?",
-    "roles": ["Soprano", "Alto", "Tenor", "Bass"]
+    text: "What is your section?",
+    roles: ["Soprano", "Alto", "Tenor", "Baritone", "Bass", "To Be Determined", "Beatbox Bois"]
   }
 ]
 
@@ -48,7 +49,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("introduction")
     .setDescription("Introduce users to ACE! (And force them to get all the roles ofc ;) )")
-    .setDefaultPermission(false),
+    .setDefaultMemberPermissions(0),
   async execute(interaction) {
     let signal = new Signal()
 
@@ -75,7 +76,7 @@ module.exports = {
     })
 
     collector.on("end", async i => {
-      i.editReply("Introduction message timed out!")
+      interaction.editReply("Introduction message timed out!")
     })
 
     for (let i = 0; i < MESSAGES.length; i++) {
@@ -83,14 +84,15 @@ module.exports = {
       let row
       if (roles.length === 0) {
         row = new ActionRowBuilder()
-            .addComponents([new ButtonBuilder()
-                .setCustomId(`${interaction.id}:next`)
-                .setLabel("Next")
-                .setStyle(ButtonStyle.Secondary)])
+            .addComponents(new ButtonBuilder()
+              .setCustomId(`${interaction.id}:next`)
+              .setLabel("Next")
+              .setStyle(ButtonStyle.Secondary),
+            )
       }
       else {
         row = new ActionRowBuilder()
-            .addComponents(roles.map((roleName, index) => {
+            .addComponents(...roles.map((roleName, index) => {
               new ButtonBuilder()
                 .setCustomId(`${interaction.id}:${i},${index}`)
                 .setLabel(roleName)
@@ -99,9 +101,9 @@ module.exports = {
       }
 
       if (i === 0)
-        await interaction.reply({ content: text, ephemeral: true, components: row })
+        await interaction.reply({ content: text, ephemeral: true, components: [row] })
       else
-        await interaction.editReply({ content: text, components: row })
+        await interaction.editReply({ content: text, components: [row] })
 
       await signal.waitForSignal(30000)
     }
