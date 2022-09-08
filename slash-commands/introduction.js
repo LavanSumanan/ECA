@@ -171,22 +171,9 @@ function renderMessage(secret, interaction, messageIndex, initial) {
             .setLabel(messageIndex < MESSAGES.length - 1 ? "Next" : "Finish")
             .setStyle(ButtonStyle.Success),
     )
-    // if (roleNames.length > 0) {
-    //     buttons.push(new MessageButton()
-    //         .setCustomId(`${secret}:clear,${roleObjects.map(role => role.id).join(",")}`)
-    //         .setLabel("Clear Roles")
-    //         .setStyle(ButtonStyle.Danger)
-    //     )
-    //     console.log(buttons[buttons.length - 1])
-    // }
 
     // create component array
     let components = createComponentArray(buttons)
-
-    // // update text with roles if needed
-    // if (roles.length > 0) {
-    //     text += '\n\nRoles:'
-    // }
 
     let ret = {
         content: text,
