@@ -5,6 +5,7 @@ const EventEmitter = require("events");
 // TODO: figure out imports???
 const {SlashCommandBuilder, ActionRowBuilder, ButtonBuilder} = require("@discordjs/builders");
 const {MessageActionRow, MessageButton, Message} = require("discord.js");
+const {Base64} = require("js-base64")
 
 // TODO: move to util file
 class Signal extends EventEmitter {
@@ -34,22 +35,67 @@ class Signal extends EventEmitter {
     }
 }
 
+class StringPacketHandler {
+    /**
+     * Handles serialization and deserialization of packets in the form of strings.  Useful for discord ActionRow customIds.
+     * Each StringPacketHandler object has an associated ID that it uses to tag its own packets.
+     *
+     * @param idSize Length of the ID (in bytes). The actual ID will be encoded in base64
+     */
+    constructor(idSize = 4) {
+        this.id = crypto.randomBytes(idSize)
+        // console.log(this.id)
+        this.idB64 = Base64.encode(this.id.toString())
+    }
+
+    /**
+     * Returns whether a given packet is associated with this handler
+     * @param packet
+     */
+    isAssociated(packet) {
+        return packet.startsWith(this.idB64 + ':')
+    }
+
+    /**
+     * Serializes a packet
+     * @param type A string denoting the type of the packet
+     * @param args Any arguments to be supplied
+     * @returns {string} The serialized packet
+     */
+    serialize(type, ...args) {
+        return [this.id, type, ...args].map(x => Base64.encode(x.toString())).join(":")
+    }
+
+
+    /**
+     * Deserializes a packet
+     * @param packet A string packet.
+     * @returns {object} An object with properties { type: string, args: string[] } containing the info of the packet
+     */
+    deserialize(packet) {
+        if (!this.isAssociated(packet)) {
+            throw new Error(`Packet ${packet} not associated with StringPacketHandler object`)
+        }
+
+        let [_, type, ...args] = packet.split(":").map(x => Base64.decode(x))
+        return { type, args }
+    }
+}
+
 // TODO: move to config
 // TODO: check roles on startup
 const MESSAGES = [
     {
-        text: "Welcome to ACE! Let me help you get started!",
-        roles: []
+        text: "Welcome to ACE! I'm ECA, the resident bot on this server, and I'm here to help you get started!\n" +
+            "There are a couple of roles that you will want to get first so that you'll have access to the channels that you want and get notified when you need to be :smiley:\n\n" +
+            "If you also want a more comprehensive guide to ACE, click this link: https://docs.google.com/document/d/1v7NUd1QDrWDGLXOU0k4eDKnZiCNv5ZQEOKMVBp86Ipw/edit#heading=h.9nufb2prdd34\n\n" +
+            "Lastly, if at any point you want/need to repeat this role selection process, you just need to type /introduction for this menu again.",
+        roles: [ ]
     },
     {
-        text: "First, what is your section?",
-        roles: ["Soprano", "Alto", "Tenor", "Baritone", "Bass", {
-            label: "Beatboxing",
-            name: "Beatbox Bois"
-        }, {label: "I don't know my section", name: "To Be Determined"}]
-    },
-    {
-        text: "What are your pronouns?",
+        text: "First, what are your pronouns?\n\n" +
+            "You may pick as many pronouns as you identify with: pressing a blue button will give you the corresponding role, and it will then turn red indicating that a " +
+            "subsequent press will take the role away (and vice versa).  When you're done, press next!",
         roles: [
             {
                 label: "She/Her",
@@ -70,24 +116,23 @@ const MESSAGES = [
         ]
     },
     {
-        text: "CC placeholder text",
-        roles: ["Arrangers", "Editors", "Mixers", "Choreo", "Video Editors"]
-    },
-    {
-        text: "Social role placeholder text",
+        text: "Are you planning on attending ACE this term are just joining to check the club out?",
         roles: [
             {
-                label: "Video Games",
-                name: "Professional Gamer"
+                label: "I'm participating 😊",
+                name: "ACE F22",
             },
             {
-                label: "Board Games",
-                name: "Board Gamer"
+                label: "Just lurkin' 👀",
+                name: "ACE",
             }
-        ]
+        ],
+        verify: true // set this to true if the buttons are verification roles -- you can only add the role and adding it takes you to the next page
     },
     {
-        text: "Hybrid aca placeholder text",
+        text: "Will you be attending ACE in-person, online, or both? These roles give access to their respective channels " +
+            "and also make it easier for execs and section leaders to notify you when needed :thumbsup:\n\n" +
+            "_You may also skip this question if you aren't attending either._",
         roles: [
             {
                 label: "In-Person",
@@ -100,7 +145,33 @@ const MESSAGES = [
         ]
     },
     {
-        text: "Bot",
+        text: "Next, what is your section? It's perfectly fine if you fall into multiple sections, or don't know yet!",
+        roles: ["Soprano", "Alto", "Tenor", "Baritone", "Bass",
+            {label: "Beatboxing", name: "Beatbox Bois"},
+            {label: "I don't know my section", name: "To Be Determined"}
+        ]
+    },
+    {
+        text: "Are you interested in any of the following creative contributor roles? No worries if you don't have experience " +
+            "and are just curious :cat_love:",
+        roles: ["Arrangers", "Editors", "Mixers", "Choreo", "Video Editors"]
+    },
+    {
+        text: "Are you interested in any of the following social activities?",
+        roles: [
+            {
+                label: "Video Games",
+                name: "Professional Gamer"
+            },
+            {
+                label: "Board Games",
+                name: "Board Gamer"
+            }
+        ]
+    },
+    {
+        text: "Finally, if you would like to help with ECA, either as QA or directly contributing to the bot, " +
+            "you may add this role for access to the bot channel :upside_down:",
         roles: [
             {
                 label: "I want to help with the bot!",
@@ -131,16 +202,15 @@ function createComponentArray(components) {
 }
 
 /**
- * Returns an object { content, components } that
+ * Returns an object that can be passed into interaction.reply, editReply, update, etc.
  *
- * @param secret The customId property is used to relay button information, and they are prefixed with a secret value
- * so that the correct collector is called.
+ * @param handler Packet handler
  * @param interaction The interaction context
  * @param messageIndex Index of the message to render
  * @param initial Boolean: whether this is the initial message object.  if it is, then ephemeral: true will be added
  * to the return
  */
-function renderMessage(secret, interaction, messageIndex, initial) {
+function renderMessage(handler, interaction, messageIndex, initial) {
     let {text, roles: roleNames} = MESSAGES[messageIndex]
     const roleObjects = roleNames.map(obj => {
         const name = obj.name || obj
@@ -150,27 +220,34 @@ function renderMessage(secret, interaction, messageIndex, initial) {
         return {name, label, id: roleObject.id}
     })
     const memberRoles = interaction.member.roles.cache
+    const verify = MESSAGES[messageIndex].verify || false
 
     // create buttons
     let buttons = roleObjects.map(role => {
         let btn = new MessageButton()
-            .setCustomId(`${secret}:${role.id}`)
+            .setCustomId(handler.serialize("add", role.id))
             .setLabel(role.label)
             .setStyle(ButtonStyle.Primary)
 
-        if (memberRoles.find(r => r.id === role.id)) {
+        if (!verify && memberRoles.find(r => r.id === role.id)) { // if verify is false, to toggle the role
             btn = btn.setStyle(ButtonStyle.Danger)
-                .setCustomId(`${secret}:clear,${role.id}`)
+                .setCustomId(handler.serialize("clear", role.id))
+        }
+        else if (verify) {
+            btn = btn.setStyle(ButtonStyle.Success)
+                .setCustomId(handler.serialize("verify", role.id))
         }
 
         return btn
     })
-    buttons.push(
-        new MessageButton()
-            .setCustomId(`${secret}:next`)
-            .setLabel(messageIndex < MESSAGES.length - 1 ? "Next" : "Finish")
-            .setStyle(ButtonStyle.Success),
-    )
+    if (!verify) {
+        buttons.push(
+            new MessageButton()
+                .setCustomId(handler.serialize("next"))
+                .setLabel(messageIndex < MESSAGES.length - 1 ? "Next" : "Finish")
+                .setStyle(ButtonStyle.Success),
+        )
+    }
 
     // create component array
     let components = createComponentArray(buttons)
@@ -192,33 +269,34 @@ module.exports = {
         .setDescription("Introduce users to ACE! (And force them to get all the roles ofc ;) )")
         .setDefaultMemberPermissions(0),
     async execute(interaction) {
-        const secret = crypto.randomBytes(4).toString("hex")
+        let messageIndex = 0
+        let handler = new StringPacketHandler()
+
         const collector = interaction.channel.createMessageComponentCollector({
-            filter: i => i.customId.startsWith(secret),
+            filter: i => handler.isAssociated(i.customId),
             time: 5 * 60 * 1000  // 5 minutes
         })
-
-        let messageIndex = 0
 
         // Set up collectors
         collector.on("collect", async i => {
             // console.log('thing happened!', i.customId)
 
-            const {customId} = i
-            const payload = customId.split(":")[1]
+            const {type, args} = handler.deserialize(i.customId)
 
-            if (!isNaN(parseInt(payload))) { // have a snowflake, add role
-                await i.member.roles.add(payload)
-            } else if (payload === "next") {
+            // handle packet
+            if (type === "add" || type === "verify") {
+                await i.member.roles.add(args)
+            }
+            if (type === "next" || type === "verify") {
                 messageIndex++
-            } else { // clear
-                const data = payload.split(",")
-                assert(data.shift() === "clear")
-                await i.member.roles.remove(data)
+            }
+            if (type === "clear") {
+                await i.member.roles.remove(args)
             }
 
+            // render next message or end
             if (messageIndex < MESSAGES.length) {
-                await i.update(renderMessage(secret, i, messageIndex, false))
+                await i.update(renderMessage(handler, i, messageIndex, false))
             } else {
                 collector.stop("finish")
             }
@@ -229,13 +307,13 @@ module.exports = {
                 await interaction.editReply({content: "You're done!", components: []})
             } else {
                 await interaction.editReply({
-                    content: "An error occured with the introduction.  Maybe it timed out?",
+                    content: "An error occurred with the introduction.  Maybe it timed out?",
                     components: []
                 })
             }
         })
 
         // initial reply
-        await interaction.reply(renderMessage(secret, interaction, messageIndex, true))
+        await interaction.reply(renderMessage(handler, interaction, messageIndex, true))
     },
 };
