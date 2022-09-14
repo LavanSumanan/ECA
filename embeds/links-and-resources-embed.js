@@ -47,14 +47,14 @@ function makeLinksAndResourcesEmbeds() {
     "https://docs.google.com/document/d/1rAklgyv7GRIfIAZR0oSk9fnO6i6_xaGDYaRQs_Vf464/edit"
   );
   aceResourcesEmbed.addField("📆 ACE Calendar", "http://bit.ly/acecalendar");
-  aceResourcesEmbed.addField(
-    "📽️ S22 BOT Slides",
-    "https://bit.ly/S22ACEBOTSlides"
-  );
-  aceResourcesEmbed.addField(
-    "⛑️ (Optional) COVID-19 Disclosure Form",
-    "https://bit.ly/S22ACECovidDisclosure"
-  );
+  // aceResourcesEmbed.addField(
+  //   "📽️ S22 BOT Slides",
+  //   "https://bit.ly/S22ACEBOTSlides"
+  // );
+  // aceResourcesEmbed.addField(
+  //   "⛑️ (Optional) COVID-19 Disclosure Form",
+  //   "https://bit.ly/S22ACECovidDisclosure"
+  // );
   aceResourcesEmbed.addField(
     "🎼 How to Read Sheet Music Video",
     "https://www.youtube.com/watch?v=MU3bNWWEGgA&ab_channel=ACE"
@@ -70,10 +70,10 @@ function makeLinksAndResourcesEmbeds() {
   socialEmbed.setDescription(
     "Like social media? Add your social media and then check out ours!"
   );
-  socialEmbed.addField(
-    "📈 S22 Social Media Spreadsheet",
-    "https://docs.google.com/spreadsheets/d/1tCDxhO5HMlj0Wd8LvGQUjzWrhs08qDXos_U1naRKJ9E/edit?usp=sharing"
-  );
+  // socialEmbed.addField(
+  //   "📈 S22 Social Media Spreadsheet",
+  //   "https://docs.google.com/spreadsheets/d/1tCDxhO5HMlj0Wd8LvGQUjzWrhs08qDXos_U1naRKJ9E/edit?usp=sharing"
+  // );
   socialEmbed.addField("⏯️ YouTube", "https://www.youtube.com/c/UWACE");
   socialEmbed.addField("✨ Instagram", "https://www.instagram.com/uw_ace");
   socialEmbed.addField("💃 TikTok", "https://www.tiktok.com/@uw_ace");
@@ -92,7 +92,7 @@ function makeLinksAndResourcesEmbeds() {
   );
   safetyResourcesEmbed.addField(
     "💞 Ombudspeople",
-    "If you prefer talking to humans rather than bots, reach out to our ombudspeople (Catie: krystal#1000 and Ray(a): Ramer93#8480). If you're interested in being an ombudsperson, let us know here: https://bit.ly/S22ACEOmbuds"
+    "We're currently looking for ombudspeople! So if you're interested in being an ombudsperson, let us know here: https://bit.ly/S22ACEOmbuds"
   );
   safetyResourcesEmbed.addField(
     "🏘️ Waterloo University and Community Resources doc",
@@ -113,10 +113,41 @@ function makeLinksAndResourcesEmbeds() {
   currentLinks.setColor("#9480e6");
   currentLinks.setTitle(":bangbang: Current Topics :bangbang:");
   currentLinks.setDescription("Looking for something? It's probably here!");
-  currentLinks.addField("📆 ACE Calendar", "http://bit.ly/acecalendar");
+  currentLinks.addField(
+    "📆 ACE Calendar",
+    "http://bit.ly/acecalendar"
+  );
+  currentLinks.addField(
+    "⭐ ACE F22 Music Drive",
+    "https://bit.ly/AceDriveFall22"
+  );
+  currentLinks.addField(
+    "☎️ Call Sheet (In-Person)",
+    "https://bit.ly/S22ACECallSheet"
+  );
   currentLinks.addField(
     "🎙️ How to Record for Online ACE",
     "https://bit.ly/3NTZ8t7"
+  );
+  // currentLinks.addField(
+  //   "📜🐿 History Recordings Submission Form",
+  //   "https://forms.gle/2Xu92PPoFDXXq67W9"
+  // );
+  // currentLinks.addField(
+  //   "📜🐿 History Solo Submission Form",
+  //   "https://forms.gle/euTWHV6cwVEACb7W8"
+  // );
+  // currentLinks.addField(
+  //   "🔥🎶 UWACC EOT CONCERT TICKETS",
+  //   "https://tinyurl.com/uwacc-concert"
+  // );
+  // currentLinks.addField(
+  //   "👩‍🦲🎮 Mii Recordings Submission Form",
+  //   "https://forms.gle/oscRGif7xmM4Sqii7"
+  // );
+  currentLinks.addField(
+      "📋 ACE Constitution",
+      "https://bit.ly/ACEConstitution"
   );
 
   let embeds = [
