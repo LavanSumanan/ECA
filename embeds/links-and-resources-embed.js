@@ -31,9 +31,9 @@ function makeLinksAndResourcesEmbeds() {
     "https://bit.ly/ACENewMemberGuide"
   );
   aceResourcesEmbed.addField(
-    "⭐ ACE Spring 2022 Drive Folder",
-    "https://www.tinyurl.com/aceMusicS22"
-  );
+    "⭐ ACE Fall 2022 Drive",
+    "https://bit.ly/AceDriveFall22"
+);
   aceResourcesEmbed.addField(
     "📜 ACE Constitution",
     "https://docs.google.com/document/d/1WS-JciXUyZrRT-O-8MMsmFkzFNJg5Jt_zM32QiPrBm0/edit"
@@ -98,16 +98,16 @@ function makeLinksAndResourcesEmbeds() {
     "🏘️ Waterloo University and Community Resources doc",
     "https://docs.google.com/document/d/1EvJODav9CoHdxpbX-Bwe1Op2o82dKzihgKFWd0Rbc_k/edit?usp=sharing"
   );
-  safetyResourcesEmbed.addField(
-    "👷 UWACC Safety Team",
-    `
-  Reach out to them if you feel unsafe in ACE; expected response time is ~5 days
-  - Tiffany Wang (tiffanywang#4878)
-  - Sarah Cleghorn (Clegs#7263)
-  - Elysia Wang (elysia#3990) (UWACC Chair)
-  Safety Team Email: uwaccsafety@gmail.com
-  `
-  );
+  // safetyResourcesEmbed.addField(
+  //   "👷 UWACC Safety Team",
+  //   `
+  // Reach out to them if you feel unsafe in ACE; expected response time is ~5 days
+  // - Tiffany Wang (tiffanywang#4878)
+  // - Sarah Cleghorn (Clegs#7263)
+  // - Elysia Wang (elysia#3990) (UWACC Chair)
+  // Safety Team Email: uwaccsafety@gmail.com
+  // `
+  // );
 
   let currentLinks = new MessageEmbed();
   currentLinks.setColor("#9480e6");
@@ -121,10 +121,10 @@ function makeLinksAndResourcesEmbeds() {
     "⭐ ACE F22 Music Drive",
     "https://bit.ly/AceDriveFall22"
   );
-  currentLinks.addField(
-    "☎️ Call Sheet (In-Person)",
-    "https://bit.ly/S22ACECallSheet"
-  );
+  // currentLinks.addField(
+  //   "☎️ Call Sheet (In-Person)",
+  //   "https://bit.ly/S22ACECallSheet"
+  // );
   currentLinks.addField(
     "🎙️ How to Record for Online ACE",
     "https://bit.ly/3NTZ8t7"
