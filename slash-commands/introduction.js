@@ -227,10 +227,10 @@ function renderMessage(handler, interaction, messageIndex, initial) {
         let btn = new MessageButton()
             .setCustomId(handler.serialize("add", role.id))
             .setLabel(role.label)
-            .setStyle(ButtonStyle.Primary)
+            .setStyle(ButtonStyle.Secondary)
 
         if (!verify && memberRoles.find(r => r.id === role.id)) { // if verify is false, to toggle the role
-            btn = btn.setStyle(ButtonStyle.Danger)
+            btn = btn.setStyle(ButtonStyle.Primary)
                 .setCustomId(handler.serialize("clear", role.id))
         }
         else if (verify) {
