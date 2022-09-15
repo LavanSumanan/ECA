@@ -17,8 +17,8 @@ module.exports = {
         .setName("publicity")
         .setDescription("Pick public or private")
         .setRequired(true)
-        .addChoice("private", "private")
-        .addChoice("public", "public")
+        .addChoices({ name: "private", value: "private" },
+            { name: "public", value: "private" })
     )
     .addStringOption((option) =>
       option

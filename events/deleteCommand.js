@@ -13,14 +13,16 @@ module.exports = {
 
     const re = /test/;
 
-    commands.forEach((command) => {
-      //   console.log(command.name, " ", command.id);
-      if (re.test(command.name))
-        try {
-          command.delete();
-        } catch (e) {
-          console.log(e);
-        }
-    });
+    if (commands !== undefined) {
+      commands.forEach((command) => {
+        //   console.log(command.name, " ", command.id);
+        if (re.test(command.name))
+          try {
+            command.delete();
+          } catch (e) {
+            console.log(e);
+          }
+      });
+    }
   },
 };

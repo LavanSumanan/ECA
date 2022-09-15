@@ -40,27 +40,22 @@ module.exports = {
     const rest = new REST({
       version: "9",
     }).setToken(process.env.BOT_TOKEN);
-    (async () => {
-      try {
-        if (!GUILD_ID) {
-          await rest.put(Routes.applicationCommands(CLIENT_ID), {
-            body: slashCommands,
-          });
-          console.log(
-            `Successfully registered ${slashCommands.length} application commands globally`
-          );
-        } else {
-          await rest.put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), {
-            body: slashCommands,
-          });
-          console.log(
-            `Successfully registered ${slashCommands.length} application commands for development guild`
-          );
-        }
-      } catch (error) {
-        if (error) console.error(error);
+
+    try {
+      if (!GUILD_ID) {
+        await rest.put(Routes.applicationCommands(CLIENT_ID), {
+          body: slashCommands,
+        });
+        console.log(`Successfully registered ${slashCommands.length} application commands globally`);
+      } else {
+        await rest.put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), {
+          body: slashCommands,
+        });
+        console.log(`Successfully registered ${slashCommands.length} application commands for development guild`);
       }
-    })();
+    } catch (error) {
+      if (error) console.error(JSON.stringify(error, null, 2));
+    }
 
     console.log("Bot is online!");
   },

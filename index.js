@@ -88,5 +88,11 @@ client.on("interactionCreate", async (interaction) => {
   }
 });
 
+// temporary introduction stuff
+client.on("guildMemberAdd", async (member) => {
+  if (!member.user.bot)
+    await member.user.send("Hey, welcome to ACE! To get started, you can type /introduction or check out the channel #🚨｜start-here!")
+})
+
 // Login to Discord with your client's token
 client.login(process.env.BOT_TOKEN);

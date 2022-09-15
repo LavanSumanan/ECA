@@ -77,3 +77,6 @@ typings/
 
 # Config file
 config.json
+
+# Webstorm
+.idea/
