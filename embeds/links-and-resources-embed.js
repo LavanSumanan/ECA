@@ -92,22 +92,20 @@ function makeLinksAndResourcesEmbeds() {
   );
   safetyResourcesEmbed.addField(
     "💞 Ombudspeople",
-    "We're currently looking for ombudspeople! So if you're interested in being an ombudsperson, let us know here: https://bit.ly/S22ACEOmbuds"
+    "We're currently looking for ombudspeople! If you're interested, please DM either Alanna (@coolest_beans#3427) or Ray (@Ramer93#8480)!"
   );
   safetyResourcesEmbed.addField(
     "🏘️ Waterloo University and Community Resources doc",
     "https://docs.google.com/document/d/1EvJODav9CoHdxpbX-Bwe1Op2o82dKzihgKFWd0Rbc_k/edit?usp=sharing"
   );
-  // safetyResourcesEmbed.addField(
-  //   "👷 UWACC Safety Team",
-  //   `
-  // Reach out to them if you feel unsafe in ACE; expected response time is ~5 days
-  // - Tiffany Wang (tiffanywang#4878)
-  // - Sarah Cleghorn (Clegs#7263)
-  // - Elysia Wang (elysia#3990) (UWACC Chair)
-  // Safety Team Email: uwaccsafety@gmail.com
-  // `
-  // );
+  safetyResourcesEmbed.addField(
+    "👷 UWACC Safety Team",
+    `
+  Reach out to them if you feel unsafe in ACE; expected response time is ~4 days
+  - Zachary Lyu (@Duelex#5844)
+  Safety Team Email: uwaccsafety@gmail.com
+  `
+  );
 
   let currentLinks = new MessageEmbed();
   currentLinks.setColor("#9480e6");
@@ -145,10 +143,6 @@ function makeLinksAndResourcesEmbeds() {
   //   "👩‍🦲🎮 Mii Recordings Submission Form",
   //   "https://forms.gle/oscRGif7xmM4Sqii7"
   // );
-  currentLinks.addField(
-      "📋 ACE Constitution",
-      "https://bit.ly/ACEConstitution"
-  );
 
   let embeds = [
     discordFriendsEmbed,
