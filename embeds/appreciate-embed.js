@@ -1,8 +1,8 @@
 const { MessageEmbed } = require("discord.js");
+const { catLove } = require("../helpers/emojiConstants");
 
 function makeAppreciateEmbed(options) {
   let embed = new MessageEmbed();
-  let catLove = "<:cat_love:799494817250803762>";
 
   embed.setColor("#00db80");
   embed.setTitle("AppreciACEtion!!");
@@ -21,7 +21,9 @@ function makeAppreciateEmbed(options) {
     );
   }
   embed.addField("We appreciate you!", catLove);
-  embed.setFooter("For help using ECA, type /help or contact #Leben3185");
+  embed.setFooter({
+    text: "For help using ECA, type /help or contact Plasmatic#0001",
+  });
   return embed;
 }
 

@@ -1,6 +1,10 @@
 const { getTime } = require("../helpers/time");
 const { sendMessageToServer } = require("../helpers/message");
 const { SlashCommandBuilder } = require("@discordjs/builders");
+const {
+  PRIVATEFEEDBACK,
+  FEEDBACKBOOGIE,
+} = require("../helpers/channelConstants");
 require("dotenv").config();
 
 module.exports = {
@@ -40,7 +44,7 @@ module.exports = {
     if (publicity === "private") {
       sendMessageToServer(
         client,
-        "909547100658860062",
+        PRIVATEFEEDBACK,
         `${currDate} @ ${currTime}: ${message}`,
         process.env.GUILD_ID
       );
@@ -51,7 +55,7 @@ module.exports = {
     } else if (publicity === "public") {
       sendMessageToServer(
         client,
-        "890683943672754218",
+        FEEDBACKBOOGIE,
         `${currDate} @ ${currTime}: ${message}`,
         process.env.GUILD_ID
       );

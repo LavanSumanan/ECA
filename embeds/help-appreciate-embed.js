@@ -1,12 +1,12 @@
 const { MessageEmbed } = require("discord.js");
+const { GENERAL } = require("../helpers/channelConstants");
+const { catLove } = require("../helpers/emojiConstants");
 
 function makeHelpAppreciateEmbed() {
   let embed = new MessageEmbed();
 
   embed.setColor("#42b3f5");
-  embed.setTitle(
-    "<:cat_love:799494817250803762> Appreciate <:cat_love:799494817250803762> Help"
-  );
+  embed.setTitle(`${catLove} Appreciate ${catLove} Help`);
   embed.setDescription("Publicly apreciate members of ACE!");
   embed.addField("Command", "`/appreciate`");
   embed.addField("Options", "anonymous, member, message");
@@ -24,11 +24,11 @@ function makeHelpAppreciateEmbed() {
   );
   embed.addField(
     "Result",
-    "ECA will share your appreciation into <#756315077937856512>!"
+    `ECA will share your appreciation into <#${GENERAL}>!`
   );
-  embed.setFooter(
-    "For help with other commands, type /help or contact Leben#3185"
-  );
+  embed.setFooter({
+    text: "For help with other commands, type /help or contact Plasmatic#0001",
+  });
   return embed;
 }
 

@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const statusSchema = require("../Schemas/status");
 require("dotenv").config();
 
@@ -6,10 +5,6 @@ module.exports = {
   name: "ready",
   once: true,
   async execute(client) {
-    await mongoose.connect(process.env.MONGO_URI || "", {
-      keepAlive: true,
-    });
-
     if (process.env.ENV === "DEV") {
       console.log("[EVENT WARNING] getStatus turned off in dev");
       return;

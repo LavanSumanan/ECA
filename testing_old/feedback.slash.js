@@ -40,9 +40,9 @@ module.exports = {
     if (publicity === "private") {
       sendMessageToServer(
         client,
-        "bot-stuffs",
+        "private-feedback",
         `${currDate} @ ${currTime}: ${message} [private]`,
-        process.env.PROD_ID
+        process.env.GUILD_ID
       );
       interaction.reply({
         content: "Sent! Thanks for the anonymous feedback!",
@@ -51,9 +51,9 @@ module.exports = {
     } else if (publicity === "public") {
       sendMessageToServer(
         client,
-        "bot-stuffs",
+        "public-feedback",
         `${currDate} @ ${currTime}: ${message} [public]`,
-        process.env.PROD_IDs
+        process.env.GUILD_ID
       );
       interaction.reply({
         content: "Sent! Thanks for the anonymous feedback!",

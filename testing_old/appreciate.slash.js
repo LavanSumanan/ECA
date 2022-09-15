@@ -3,9 +3,9 @@ const {
   sendEmbedToServer,
 } = require("../helpers/message");
 const { embedHandler } = require("../embeds/handler");
-const { testEmbed } = require("./testEmbed");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { BOTSTUFFS } = require("../helpers/channelConstants");
+const { catLove } = require("../helpers/emojiConstants");
 require("dotenv").config();
 
 module.exports = {
@@ -13,17 +13,16 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("appreciatetest")
     .setDescription("Appreciate someone in ACE for being awesome!")
-    .addUserOption((option) =>
-      option
-        .setName("member")
-        .setDescription("Pick an ACE member to appreciate!")
-        .setRequired(true)
-    )
     .addBooleanOption((option) =>
       option
         .setName("anonymous")
         .setDescription("Do you want to remain anonymous?")
         .setRequired(true)
+    )
+    .addUserOption((option) =>
+      option
+        .setName("member")
+        .setDescription("Pick an ACE member to appreciate!")
     )
     .addStringOption((option) =>
       option
@@ -36,29 +35,33 @@ module.exports = {
     const options = interaction.options;
     const anonymous = options.get("anonymous").value;
     const appreciator = anonymous ? null : interaction.user;
-    const appreciated = options.get("member").value;
+    const appreciated = options.get("member")
+      ? options.get("member").value
+      : "";
     const appreciationMessage = options.get("message")
       ? options.get("message").value
       : "";
 
     const embedOptions = { appreciator, appreciated, appreciationMessage };
 
-    // Send appreciation message to appropriate channel
-
-    const post = `**${appreciator} wanted to thank <@${appreciated}> for the following**:
-  > ${appreciationMessage}
-  **Thanks for making *ACE* a better pl*ACE!*** <:cat_love:799494817250803762>`;
-
-    // sendMessageToServer(client, "general", post, process.env.GUILD_ID); // remove this after fixing embeds
-
-    // const embed = testEmbed(embedOptions);
     const embed = embedHandler("appreciate", embedOptions);
 
-    sendEmbedToServer(client, BOTSTUFFS, embed, process.env.PROD_ID);
+    if (appreciated) {
+      try {
+        sendMessageToServer(
+          client,
+          "general",
+          `<@${appreciated}>`,
+          process.env.GUILD_ID
+        );
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    sendEmbedToServer(client, "general", embed, process.env.GUILD_ID);
 
     interaction.reply({
-      content:
-        "Sent! And thank *you* for appreciating other ACE members. I appreciate you for that! <:cat_love:799494817250803762>",
+      content: `Sent! And thank *you* for appreciating other ACE members. I appreciate you for that! ${catLove}`,
       ephemeral: true,
     });
   },
