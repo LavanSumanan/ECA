@@ -88,14 +88,15 @@ const MESSAGES = [
     {
         text: "Welcome to ACE! I'm ECA, the resident bot on this server, and I'm here to help you get started!\n" +
             "There are a couple of roles that you will want to get first so that you'll have access to the channels that you want and get notified when you need to be :smiley:\n\n" +
-            "If you also want a more comprehensive guide to ACE, click this link: https://docs.google.com/document/d/1v7NUd1QDrWDGLXOU0k4eDKnZiCNv5ZQEOKMVBp86Ipw/edit#heading=h.9nufb2prdd34\n\n" +
             "Lastly, if at any point you want/need to repeat this role selection process, you just need to type /introduction for this menu again.",
         roles: [ ]
     },
     {
-        text: "First, what are your pronouns?\n\n" +
-            "You may pick as many pronouns as you identify with: pressing a blue button will give you the corresponding role, and it will then turn red indicating that a " +
-            "subsequent press will take the role away (and vice versa).  When you're done, press next!",
+        text: "First, what are your pronouns? (You may pick as many pronouns as you identify with)\n\n" +
+            "If a button is:\n" +
+            "* Gray: You do not have the role, clicking it will give you the role\n" +
+            "* Blue: You have the role, clicking it will remove the role\n" +
+            "When you're done, click 'Next' to go to the next page!",
         roles: [
             {
                 label: "She/Her",
@@ -180,6 +181,10 @@ const MESSAGES = [
         ]
     }
 ]
+
+const FINISH_MESSAGE = "You're done!\n\n" +
+    "**P.S.:** If you also want a more comprehensive guide to ACE, click this link: " +
+    "https://docs.google.com/document/d/1v7NUd1QDrWDGLXOU0k4eDKnZiCNv5ZQEOKMVBp86Ipw/edit#heading=h.9nufb2prdd34";
 
 /**
  * Generates an array of ActionRow objects out of a list of components.  If there are more than 5 components, then they
@@ -266,8 +271,7 @@ module.exports = {
     level: "public",
     data: new SlashCommandBuilder()
         .setName("introduction")
-        .setDescription("Introduce users to ACE! (And force them to get all the roles ofc ;) )")
-        .setDefaultMemberPermissions(0),
+        .setDescription("Introduce users to ACE! (And force them to get all the roles ofc ;) )"),
     async execute(interaction) {
         let messageIndex = 0
         let handler = new StringPacketHandler()
@@ -304,7 +308,7 @@ module.exports = {
 
         collector.on("end", async (_, reason) => {
             if (reason === "finish") {
-                await interaction.editReply({content: "You're done!", components: []})
+                await interaction.editReply({content: FINISH_MESSAGE, components: []})
             } else {
                 await interaction.editReply({
                     content: "An error occurred with the introduction.  Maybe it timed out?",
